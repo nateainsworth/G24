@@ -1,0 +1,54 @@
+﻿@page
+@model Group_24.Pages.Users.ViewModel
+@{
+}
+
+
+<div>
+    <p>Filter By Mod Level : </p>
+    <form>
+        <select type="text" asp-for="Type" style="width:50px;">
+            <option>ALL</option>
+            @foreach(var item in Model.AccountType)
+            {
+                <option>@item</option>
+            }
+        </select>
+        <input type="submit" value="Filter" />
+    </form>
+</div>
+<br/>
+
+<div>
+    <table class="table table-active">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.UserRecords[0].UserID)</th>
+                <th>@Html.DisplayNameFor(model => model.UserRecords[1].FirstName)</th>
+                <th>@Html.DisplayNameFor(model => model.UserRecords[2].LastName)</th>
+                <th>@Html.DisplayNameFor(model => model.UserRecords[3].EmailAddress)</th>
+                <th>@Html.DisplayNameFor(model => model.UserRecords[4].Password)</th>
+                <th>@Html.DisplayNameFor(model => model.UserRecords[5].ModLevel)</th>
+                <th>Actions</th>
+
+
+            </tr>
+        </thead>
+        @for (int i=0; i < Model.UserRecords.Count; i++)
+        {
+    <tr>
+        <td>@Model.UserRecords[i].UserID</td>
+        <td>@Model.UserRecords[i].FirstName</td>
+        <td>@Model.UserRecords[i].LastName</td>
+        <td>@Model.UserRecords[i].EmailAddress</td>
+        <td>@Model.UserRecords[i].Password</td>
+        <td>@Model.UserRecords[i].ModLevel</td>
+        <td>
+            <a asp-page="/Users/Update" asp-route-id="@Model.UserRecords[i].UserID">Update</a>
+            <a asp-page="/Users/Delete" asp-route-id="@Model.UserRecords[i].UserID">Delete</a>
+        </td>
+    </tr>
+        }
+
+    </table>
+</div>

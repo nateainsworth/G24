@@ -1,0 +1,37 @@
+﻿@page
+@model Group_24.Pages.Users.UpdateModel
+@{
+}
+
+
+<h1>Update Record</h1>
+
+
+<div>
+    <form method="post">
+        <input type="hidden" asp-for="UserRecord.UserID" />
+        <div class="form-group">
+            <label asp-for="UserRecord.FirstName" class="custom-control-label"></label>
+            <input type="text" asp-for="UserRecord.FirstName" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="UserRecord.LastName" class="custom-control-label"></label>
+            <input type="text" asp-for="UserRecord.LastName" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="UserRecord.EmailAddress" class="custom-control-label"></label>
+            <input type="text" asp-for="UserRecord.EmailAddress" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="UserRecord.Password" class="custom-control-label"></label>
+            <input type="text" asp-for="UserRecord.Password" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="UserRecord.ModLevel" class="custom-control-label"></label>
+            <input type="text" asp-for="UserRecord.ModLevel" class="form-control" />
+        </div>
+        <input type="submit" value="Update" class="btn btn-secondary" />
+    </form>
+   
+
+</div>

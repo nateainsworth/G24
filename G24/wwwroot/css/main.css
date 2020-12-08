@@ -1,0 +1,101 @@
+﻿body {
+    padding: 0px;
+    margin: 0px;
+    font: 300 15px/1.4 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    overflow-x: hidden;
+}
+
+header {
+    position: relative;
+    z-index: 10;
+}
+
+.hero {
+    height: 100vh !important; /* this is important to cancel out the height given to container in the layout*/
+    width: 100vw;
+}
+
+.hero-banner {
+    position: fixed;
+    z-index: 1;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 100vh;
+    background-image: url("https://images.unsplash.com/photo-1511497584788-876760111969?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2089&q=80");
+    background-position: 50% 40%;
+    repeat: no-repeat;
+}
+
+.hero-text {
+    color: white;
+    font-size: 20vh;
+    position: fixed;
+    z-index: 2;
+    color: #ffffff;
+    top: 50%;
+    left: 0%;
+    -webkit-transform: translate(-50%, -50%);
+    writing-mode: vertical-rl;
+    mix-blend-mode: difference;
+}
+
+
+.container div {
+    height: auto;
+    overflow: hidden;
+}
+
+.container {
+    width: 100vw;
+    height: auto;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    background: #ffffff;
+}
+
+
+
+.wrapper {
+    position: relative;
+    z-index: 3;
+    padding: 10vh 0px;
+    width: 100vw;
+    height: auto;
+    background: #ffffff;
+}
+
+
+[class*="col-"] {
+    padding: 0;
+}
+
+img {
+    width: 100%;
+}
+
+
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1200px;
+    }
+}
+
+
+.image-column {
+    position: relative;
+    margin: 5px;
+}
+
+
+
+    .image-column:hover .overlay {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        height: 100% !important;
+        width: 100%;
+        background-color: rgba(0,0,0,0.7)
+    }

@@ -1,0 +1,24 @@
+﻿@page
+@model Group_24.Pages.Users.DeleteModel
+@{
+}
+
+<h1>Delete User</h1>
+
+<h2 class="text-danger">Are you sure you want to delete the record?</h2>
+
+<div class="table-active">
+    <div>
+        <label asp-for="UserRecord.UserID"></label>
+        <span> : </span>
+        @Model.UserRecord.UserID
+
+    </div>
+    <div>
+        <form method="post">
+            <input type="hidden" asp-for="UserRecord.UserID"/>
+            <input type="submit" value="Delete" class="btn btn-danger" />
+        </form>
+    </div>
+
+</div>
