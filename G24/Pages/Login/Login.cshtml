@@ -1,0 +1,31 @@
+﻿@page
+@model G24.Pages.Login.LoginModel
+@{
+}
+
+
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+
+            <div class="form-group">
+                <label class="custom-control-label">Login</label>
+                <input type="text" asp-for="User.EmailAddress" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label class="custom-control-label">Login</label>
+                <input type="text" asp-for="User.EmailAddress" class="form-control" />
+            </div>
+
+            <div>
+                <input type="submit" value="login" class="btn btn-primary"/>
+            </div>
+
+
+        </form>
+        <div>
+            <p style="color:red">@Model.Message</p>
+        </div>
+    </div>
+</div>

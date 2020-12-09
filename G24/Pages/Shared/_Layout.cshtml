@@ -31,34 +31,34 @@
         </nav>
     </header>
 
-
     @{
-            //Get the current Page if index display a different layout.
-            var controller = ViewData.Model.HttpContext.HttpContext.Request.RouteValues.Values[0].ToString();
-            string cLayout = "";
-        }
+        //Get the current Page if index display a different layout.
+        var controller = ViewData.Model.HttpContext.HttpContext.Request.RouteValues.Values[0].ToString();
+    }
 
-        @if (controller == "/Index") {
-<div class="content">
-    <main role="main" class="pb-3">
-
-
-
-        @RenderBody()
-    </main>
-</div>
-
-        }else{ 
-<div class="container">
-    <main role="main" class="pb-3">
+    @if (controller == "/Index")
+    {
+        <div class="content">
+            <main role="main" class="pb-3">
 
 
 
-        @RenderBody()
-    </main>
-</div>
-        }
+                @RenderBody()
+            </main>
+        </div>
 
+    }
+    else
+    {
+        <div class="container">
+            <main role="main" class="pb-3">
+
+
+
+                @RenderBody()
+            </main>
+        </div>
+    }
 
     <footer class="border-top footer text-muted">
         <div class="container">

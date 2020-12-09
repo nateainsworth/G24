@@ -7,7 +7,7 @@
 
 header {
     position: relative;
-    z-index: 10;
+    z-index: 10 !important;
 }
 
 .hero {
@@ -24,7 +24,7 @@ header {
     height: 100vh;
     background-image: url("https://images.unsplash.com/photo-1511497584788-876760111969?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2089&q=80");
     background-position: 50% 40%;
-    repeat: no-repeat;
+    /*repeat: no-repeat;*/
 }
 
 .hero-text {
@@ -98,4 +98,10 @@ img {
         height: 100% !important;
         width: 100%;
         background-color: rgba(0,0,0,0.7)
+    }
+
+
+    .main {
+        margin-bottom:0;
+        padding-bottom:0;
     }
