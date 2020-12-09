@@ -30,11 +30,35 @@
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+
+
+    @{
+            //Get the current Page if index display a different layout.
+            var controller = ViewData.Model.HttpContext.HttpContext.Request.RouteValues.Values[0].ToString();
+            string cLayout = "";
+        }
+
+        @if (controller == "/Index") {
+<div class="content">
+    <main role="main" class="pb-3">
+
+
+
+        @RenderBody()
+    </main>
+</div>
+
+        }else{ 
+<div class="container">
+    <main role="main" class="pb-3">
+
+
+
+        @RenderBody()
+    </main>
+</div>
+        }
+
 
     <footer class="border-top footer text-muted">
         <div class="container">
