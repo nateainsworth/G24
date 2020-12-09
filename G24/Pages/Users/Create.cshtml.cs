@@ -47,6 +47,7 @@ namespace G24.Pages.Users
                 command.ExecuteNonQuery();
 
             }
+            connect.Close();
 
 
             return RedirectToPage("/Index");

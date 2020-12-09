@@ -23,6 +23,12 @@ namespace G24
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSession(options =>
+            {
+                options.Cookie.Name = ".AdventureWorks.Session";
+                options.IdleTimeout = TimeSpan.FromSeconds(10);
+                options.Cookie.IsEssential = true;
+            });
 
             services.AddRazorPages();
         }
@@ -48,7 +54,7 @@ namespace G24
 
             app.UseAuthorization();
 
-            //app.UseSession();
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {
