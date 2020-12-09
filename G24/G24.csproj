@@ -2,10 +2,19 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+	  <RootNamespace>G24</RootNamespace>
   </PropertyGroup>
+	<ItemGroup>
+		<Content Include="Models\User.cs" />
+	</ItemGroup>
 
-  <ItemGroup>
+
+
+	<ItemGroup>
     <Folder Include="Data\" />
+  </ItemGroup>
+  <ItemGroup>
+	<PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
   </ItemGroup>
 
 </Project>
