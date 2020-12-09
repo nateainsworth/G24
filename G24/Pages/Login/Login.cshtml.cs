@@ -66,6 +66,7 @@ namespace G24.Pages.Login
                HttpContext.Session.SetString("sessionID", SessionID);
                HttpContext.Session.SetString("emailAddress", UserRecord.EmailAddress);
                HttpContext.Session.SetString("firstName", UserRecord.FirstName);
+               HttpContext.Session.SetInt32("modLevel", UserRecord.ModLevel);
 
 
                 if (UserRecord.ModLevel == 1)
