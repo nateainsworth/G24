@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,12 +21,11 @@ namespace G24.Pages.Login
 
         public IActionResult OnPost()
         {
-           /* DatabaseConnect dbstring = new DatabaseConnect();
-            string Dbconnection = dbstring.DatabaseString();
-            Console.WriteLine(DbConnection);*/
+            DBConnect G24database_connection = new DBConnect();
+            string DBconnection = G24database_connection.DatabaseString();
+            Console.WriteLine(DBconnection);
 
-            string G24database_connection = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Nate\source\repos\G24\G24\Data\G24Database.mdf;Integrated Security=True;Connect Timeout=30";
-            SqlConnection connect = new SqlConnection(G24database_connection);
+            SqlConnection connect = new SqlConnection(DBconnection);
             connect.Open();
 
             //UserRecord = new User();

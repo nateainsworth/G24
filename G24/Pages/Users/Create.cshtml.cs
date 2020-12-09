@@ -21,8 +21,11 @@ namespace G24.Pages.Users
 
         public IActionResult OnPost()
         {
-            string G24database_connection = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Nate\source\repos\G24\G24\Data\G24Database.mdf;Integrated Security=True;Connect Timeout=30";
-            SqlConnection connect = new SqlConnection(G24database_connection);
+            DBConnect G24database_connection = new DBConnect();
+            string DBconnection = G24database_connection.DatabaseString();
+            Console.WriteLine(DBconnection);
+
+            SqlConnection connect = new SqlConnection(DBconnection);
             connect.Open();
 
             using (SqlCommand command = new SqlCommand())
