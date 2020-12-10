@@ -1,11 +1,12 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - G24</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link  rel="stylesheet" href="~/css/main.css"/>
+    <link rel="stylesheet" href="~/css/main.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
@@ -22,32 +23,30 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
                         </li>
-                        @{ /*
-var sessionModData = ViewData.Model.HttpContext.HttpContext.Session.GetString("modLevel");
-if (sessionModData > 0)
-{
-<li class="nav-item">
-<a class="nav-link text-dark" asp-area="" asp-page="/Users/View">Admin Panel</a>
-</li>
-}
-if (sessionModData == null)
-{
-<li class="nav-item">
-<a class="nav-link text-dark" asp-area="" asp-page="/Login/Login">Login</a>
-</li>
+                        @{
 
-<li class="nav-item">
-<a class="nav-link text-dark" asp-area="" asp-page="/Logout/Logout">Logout</a>
-</li>
-}
-else 
-if (ViewData.Model.HttpContext.HttpContext["Session"] != null)
-{
-<li class="nav-item">
-<a class="nav-link text-dark" asp-area="" asp-page="/Login/Login">Login</a>
-</li>
-}
-*/
+                            
+                            if (Model.ActiveRecord.Active_ModLevel == 1 )
+                            {
+                            <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Users/View">Admin Panel</a>
+                            </li>
+                            }
+
+                            if (Model.ActiveRecord.Active_Sesson == false || Model.ActiveRecord.Active_Sesson != null)
+                            {
+
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-page="/Login/Login">Login</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-page="/Logout/Logout">Logout</a>
+                                </li>
+                            }
+
                         }
 
                         <li class="nav-item">
@@ -60,25 +59,13 @@ if (ViewData.Model.HttpContext.HttpContext["Session"] != null)
     </header>
 
     @{
-        /*
-    public string SessionID;
-    public const string Session_SessionID = "sessionID";
-    public string EmailAddress;
-    public const string Session_EmailAddress = "emailAddress";
-    public string FirstName;
-    public const string Session_FirstName = "firstName";
-    public int? ModLevel;
-    public const string Session_ModLevel = "modLevel";
 
-    
-    SessionID = ViewData.Model.HttpContext.HttpContext.Session.GetString(Session_SessionID);
-    EmailAddress = ViewData.Model.HttpContext.Session.GetString(Session_EmailAddress);
-    FirstName = ViewData.Model.HttpContext.Session.GetString(Session_FirstName);
-    ModLevel = ViewData.Model.HttpContext.Session.GetInt32(Session_ModLevel);
-    */
-       
+
         //Get the current Page if index display a different layout.
+
+        /*
         var controller = ViewData.Model.HttpContext.HttpContext.Request.RouteValues.Values[0].ToString();
+
     }
 
     @if (controller == "/Index")
@@ -104,6 +91,9 @@ if (ViewData.Model.HttpContext.HttpContext["Session"] != null)
             </main>
         </div>
     }
+        */
+    }
+    @RenderBody()
 
     <footer class="border-top footer text-muted">
         <div class="container">

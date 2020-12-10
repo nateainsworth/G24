@@ -13,9 +13,18 @@ using G24.Pages.Users;
 namespace G24.Pages.Login
 {
 
-
     public class LoginModel : PageModel
     {
+
+
+        [BindProperty]
+        public SessionActive ActiveRecord { get; set; }
+
+        public const string Session_SessionID = "sessionID";
+        public const string Session_EmailAddress = "emailAddress";
+        public const string Session_FirstName = "firstName";
+        public const string Session_ModLevel = "modLevel";
+
         [BindProperty]
         public User UserRecord { get; set; }
         public String Message { get; set; }
@@ -93,8 +102,28 @@ namespace G24.Pages.Login
         }
 
 
-        public void OnGet()
+        public IActionResult OnGet()
         {
+
+            ActiveRecord = new SessionActive();
+
+            ActiveRecord.Active_SessionID = HttpContext.Session.GetString(Session_SessionID);
+            ActiveRecord.Active_EmailAddress = HttpContext.Session.GetString(Session_EmailAddress);
+            ActiveRecord.Active_FirstName = HttpContext.Session.GetString(Session_FirstName);
+            ActiveRecord.Active_ModLevel = HttpContext.Session.GetInt32(Session_ModLevel);
+            
+
+            if (string.IsNullOrEmpty(ActiveRecord.Active_EmailAddress) && string.IsNullOrEmpty(ActiveRecord.Active_FirstName) && string.IsNullOrEmpty(ActiveRecord.Active_SessionID))
+            {
+                ActiveRecord.Active_Sesson = false;
+            }
+            else
+            {
+                ActiveRecord.Active_Sesson = true;
+                return RedirectToPage("/Users/Index");
+            }
+
+            return Page();
         }
     }
 }
