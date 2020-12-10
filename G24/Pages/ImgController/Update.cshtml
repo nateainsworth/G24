@@ -1,0 +1,35 @@
+﻿@page
+@model G24.Pages.ImgController.UpdateModel
+@{
+}
+
+<h1>Update Image</h1>
+
+
+<div>
+    <form method="post">
+        <div class="form-group">
+            <label asp-for="ImgRecord.ImgID" class="custom-control-label"></label>
+            <input type="text" asp-for="ImgRecord.ImgID" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="ImgRecord.ImgURL" class="custom-control-label"></label>
+            <input type="text" asp-for="ImgRecord.ImgURL" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="ImgRecord.Type" class="custom-control-label"></label>
+            <input type="text" asp-for="ImgRecord.Type" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="ImgRecord.ImgName" class="custom-control-label"></label>
+            <input type="text" asp-for="ImgRecord.ImgName" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="ImgRecord.UserID" class="custom-control-label"></label>
+            <input type="text" asp-for="ImgRecord.UserID" class="form-control" />
+        </div>
+        <input type="submit" value="Update" class="btn btn-secondary" />
+    </form>
+
+
+</div>

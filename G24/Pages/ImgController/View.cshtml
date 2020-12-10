@@ -1,0 +1,55 @@
+﻿@page
+@model G24.Pages.ImgController.ViewModel
+@{
+}
+
+
+
+<div>
+    <p>Filter By Image Type : </p>
+    <form>
+        <select type="text" asp-for="Type" style="width:50px;">
+            <option>ALL</option>
+            @for (int i = 0; i < Model.ImgRecords.Count; i++)
+            {
+            <option>@Model.ImgRecords[i].Type</option>
+            }
+        </select>
+        <input type="submit" value="Filter" />
+    </form>
+</div>
+<br />
+
+<div>
+    <table class="table table-active">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.ImgRecords[0].ImgID)</th>
+                <th>@Html.DisplayNameFor(model => model.ImgRecords[1].ImgURL)</th>
+                <th>@Html.DisplayNameFor(model => model.ImgRecords[2].Type)</th>
+                <th>@Html.DisplayNameFor(model => model.ImgRecords[3].ImgName)</th>
+                <th>@Html.DisplayNameFor(model => model.ImgRecords[4].UserID)</th>
+                
+                <th>Actions</th>
+
+
+            </tr>
+        </thead>
+        @for (int i = 0; i < Model.ImgRecords.Count; i++)
+        {
+            <tr>
+                <td>@Model.ImgRecords[i].ImgID</td>
+                <td>@Model.ImgRecords[i].ImgURL</td>
+                <td>@Model.ImgRecords[i].Type</td>
+                <td>@Model.ImgRecords[i].ImgName</td>
+                <td>@Model.ImgRecords[i].UserID</td>
+                
+                <td>
+                    <a asp-page="/ImgController/Update" asp-route-id="@Model.ImgRecords[i].ImgID">Update</a>
+                    <a asp-page="/ImgController/Delete" asp-route-id="@Model.ImgRecords[i].ImgID">Delete</a>
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

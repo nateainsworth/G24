@@ -1,0 +1,24 @@
+﻿@page
+@model G24.Pages.ImgController.DeleteModel
+@{
+}
+
+<h1>Delete Image</h1>
+
+<h2 class="text-danger">Are you sure you want to delete the record?</h2>
+
+<div class="table-active">
+    <div>
+        <label asp-for="ImgRecord.ImgID"></label>
+        <span> : </span>
+        @Model.ImgRecord.ImgID
+
+    </div>
+    <div>
+        <form method="post">
+            <input type="hidden" asp-for="ImgRecord.ImgID" />
+            <input type="submit" value="Delete" class="btn btn-danger" />
+        </form>
+    </div>
+
+</div>

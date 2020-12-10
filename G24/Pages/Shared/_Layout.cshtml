@@ -25,12 +25,15 @@
                         </li>
                         @{
 
-                            
-                            if (Model.ActiveRecord.Active_ModLevel == 1 )
+
+                            if (Model.ActiveRecord.Active_ModLevel == 1)
                             {
-                            <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Users/View">Admin Panel</a>
-                            </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-page="/Users/View">Admin Panel</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-page="/ImgController/View">Images</a>
+                                </li>
                             }
 
                             if (Model.ActiveRecord.Active_Sesson == false || Model.ActiveRecord.Active_Sesson == null)
@@ -44,6 +47,11 @@
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-page="/Logout/Logout">Logout</a>
                                 </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-page="/ImgController/Create">Upload</a>
+                                </li>
+
                             }
 
                         }
@@ -62,7 +70,7 @@
 
         //Get the current Page if index display a different layout.
 
-        /*
+        
         var controller = ViewData.Model.HttpContext.HttpContext.Request.RouteValues.Values[0].ToString();
 
     }
@@ -71,9 +79,6 @@
     {
         <div class="content">
             <main role="main" class="pb-3">
-
-
-
                 @RenderBody()
             </main>
         </div>
@@ -83,16 +88,13 @@
     {
         <div class="container">
             <main role="main" class="pb-3">
-
-
-
                 @RenderBody()
             </main>
         </div>
     }
-        */
+        
     }
-    @RenderBody()
+   
 
     <footer class="border-top footer text-muted">
         <div class="container">
