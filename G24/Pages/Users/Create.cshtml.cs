@@ -71,9 +71,14 @@ namespace G24.Pages.Users
             ActiveRecord.Active_EmailAddress = HttpContext.Session.GetString(Session_EmailAddress);
             ActiveRecord.Active_FirstName = HttpContext.Session.GetString(Session_FirstName);
             ActiveRecord.Active_ModLevel = HttpContext.Session.GetInt32(Session_ModLevel);
-            ActiveRecord.Active_Sesson = false;
+            
 
             if (string.IsNullOrEmpty(ActiveRecord.Active_EmailAddress) && string.IsNullOrEmpty(ActiveRecord.Active_FirstName) && string.IsNullOrEmpty(ActiveRecord.Active_SessionID))
+            {
+                ActiveRecord.Active_Sesson = false;
+                
+            }
+            else
             {
                 ActiveRecord.Active_Sesson = true;
                 return RedirectToPage("/Users/Index");
