@@ -18,22 +18,19 @@ namespace G24.Pages.Users
         public const string Session_EmailAddress = "emailAddress";
         public string FirstName;
         public const string Session_FirstName = "firstName";
-        public string ModLevel;
+        public int? ModLevel;
         public const string Session_ModLevel = "modLevel";
-
-
-
-
 
 
         public IActionResult OnGet()
         {
+            SessionID = HttpContext.Session.GetString(Session_SessionID);
             EmailAddress = HttpContext.Session.GetString(Session_EmailAddress);
             FirstName = HttpContext.Session.GetString(Session_FirstName);
-            ModLevel = HttpContext.Session.GetString(Session_ModLevel);
-            SessionID = HttpContext.Session.GetString(Session_SessionID);
-
-            if(string.IsNullOrEmpty(EmailAddress) && string.IsNullOrEmpty(FirstName) && string.IsNullOrEmpty(ModLevel) && string.IsNullOrEmpty(SessionID))
+            ModLevel = HttpContext.Session.GetInt32(Session_ModLevel);
+            
+            
+            if (string.IsNullOrEmpty(EmailAddress) && string.IsNullOrEmpty(FirstName) && string.IsNullOrEmpty(SessionID))
             {
                 return RedirectToPage("/Login/Login");
             }

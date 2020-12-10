@@ -2,12 +2,13 @@
 @model G24.Pages.Login.LoginModel
 @{
 }
-
+<h1>Login</h1>
+<a asp-page="/Users/Create">Sign Up</a>
 
 <div class="row">
     <div class="col-md-4">
         <form method="post">
-
+            
             <div class="form-group">
                 <label asp-for="UserRecord.EmailAddress" class="custom-control-label">Login</label>
                 <input type="text" asp-for="UserRecord.EmailAddress" class="form-control" />
@@ -23,6 +24,7 @@
             <div>
                 <input type="submit" value="login" class="btn btn-primary"/>
             </div>
+            
 
 
         </form>

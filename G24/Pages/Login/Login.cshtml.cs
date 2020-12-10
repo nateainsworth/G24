@@ -8,9 +8,12 @@ using G24.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using G24.Pages.Users;
 
 namespace G24.Pages.Login
 {
+
+
     public class LoginModel : PageModel
     {
         [BindProperty]
@@ -69,13 +72,14 @@ namespace G24.Pages.Login
                HttpContext.Session.SetInt32("modLevel", UserRecord.ModLevel);
 
 
+
                 if (UserRecord.ModLevel == 1)
                 {
-                    return RedirectToPage("Users/View");
+                    return RedirectToPage("/Users/View");
                 }
                 else
                 {
-                    return RedirectToPage("/Index");
+                    return RedirectToPage("/Users/Index");
                 }
             }
             else
