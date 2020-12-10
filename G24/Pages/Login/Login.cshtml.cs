@@ -24,6 +24,8 @@ namespace G24.Pages.Login
 
         public IActionResult OnPost()
         {
+            //SessionRecord Sessions = new SessionRecord();
+
             DBConnect G24database_connection = new DBConnect();
             string DBconnection = G24database_connection.DatabaseString();
             Console.WriteLine(DBconnection);
