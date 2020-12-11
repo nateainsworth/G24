@@ -100,7 +100,7 @@ namespace G24.Pages.ImgController
                 //sets all new users to a modlevel of 0
                 command.CommandText = "DELETE Images WHERE ImgID = @ImgID";
 
-                command.Parameters.AddWithValue("@ImgID", ImgRecord.UserID);
+                command.Parameters.AddWithValue("@ImgID", ImgRecord.ImgID);
                 command.ExecuteNonQuery();
 
             }
@@ -108,7 +108,7 @@ namespace G24.Pages.ImgController
             connect.Close();
 
 
-            return RedirectToPage("/Users/View");
+            return RedirectToPage("/ImgController/View");
         }
 
 

@@ -17,17 +17,17 @@ namespace G24.Pages.ImgController
         [BindProperty]
         public Images ImgRecord { get; set; }
 
-        [BindProperty(SupportsGet =true)]
+        [BindProperty]
         public IFormFile ImgFile { get; set; }
 
         public readonly IWebHostEnvironment _env;
 
-        /*
-        public UploadFileModel(IWebHostEnvironment env)
+        
+        public UploadModel(IWebHostEnvironment env)
         {
             _env = env;
         }
-        */
+        
         public IActionResult OnPost()
         {
             DBConnect G24database_connection = new DBConnect();
@@ -37,7 +37,8 @@ namespace G24.Pages.ImgController
             SqlConnection connect = new SqlConnection(DBconnection);
             connect.Open();
 
-            var FileToUpload = Path.Combine(_env.WebRootPath, "Files", ImgFile.FileName);
+            const string Path2 = "ImgUploads";
+            var FileToUpload = Path.Combine(_env.WebRootPath, Path2, ImgFile.FileName); //ImgFile.FileName
             Console.WriteLine("File name" + FileToUpload);
 
             using(var Fstream = new FileStream(FileToUpload, FileMode.Create))
@@ -55,15 +56,14 @@ namespace G24.Pages.ImgController
                 //sets all new users to a modlevel of 0
                 command.CommandText = @"INSERT INTO Images ( ImgURL, Type, ImgName, UserID) VALUES ( @ImgURL, @Type, @ImgName, @UserID)";
 
-                //ImgID @ImgID
-                // command.Parameters.AddWithValue("@ImgID", ImgRecord.ImgID);
-                command.Parameters.AddWithValue("@ImgURL", ImgRecord.ImgURL);
+                
+                command.Parameters.AddWithValue("@ImgURL", ImgFile.FileName);
                 command.Parameters.AddWithValue("@Type", ImgRecord.Type);
                 command.Parameters.AddWithValue("@ImgName", ImgRecord.ImgName);
                 command.Parameters.AddWithValue("@UserID", ImgRecord.UserID);
 
-                //Console.WriteLine(ImgRecord.ImgID);
-                Console.WriteLine(ImgRecord.ImgURL);
+               
+                Console.WriteLine(ImgFile.FileName);
                 Console.WriteLine(ImgRecord.Type);
                 Console.WriteLine(ImgRecord.ImgName);
                 Console.WriteLine(ImgRecord.UserID);

@@ -7,6 +7,7 @@ namespace G24.Models
 {
     public class ImgFile
     {
-        public String FileName { get; set; }
+        public string FileID { get; set; }
+        public string FileName { get; set; }
     }
 }
