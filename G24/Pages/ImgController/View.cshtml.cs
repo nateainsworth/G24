@@ -68,7 +68,7 @@ namespace G24.Pages.ImgController
                 if (!(string.IsNullOrEmpty(Type) || Type == "ALL"))
                 {
                     command.CommandText += " WHERE Type = @ImgType";
-                    command.Parameters.AddWithValue("@ImgType", Convert.ToInt32(Type));
+                    command.Parameters.AddWithValue("@ImgType",Type);
                 }
 
                 SqlDataReader reader = command.ExecuteReader();
