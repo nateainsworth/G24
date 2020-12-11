@@ -12,6 +12,7 @@
 
 	<ItemGroup>
     <Folder Include="Data\" />
+    <Folder Include="Pages\ImgUpload\" />
   </ItemGroup>
   <ItemGroup>
 	<PackageReference Include="System.Data.SqlClient" Version="4.8.2" />

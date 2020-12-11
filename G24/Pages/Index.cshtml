@@ -17,44 +17,41 @@
         </ul>
         <div class="row">
             <div class="col-4">
-                <div class="image-column">
-                    <div class="overlay"><span class="glyphicon glyphicon-download"></span></div>
-                    <img src="https://images.unsplash.com/photo-1490100667990-4fced8021649?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTN8fGZvcmVzdHxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60" />
-                </div>
-                <div class="image-column">
-                    <div class="overlay"><span class="glyphicon glyphicon-download"></span></div>
-                    <img src="https://images.unsplash.com/photo-1527701963793-33e969bca5ee?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTF8fGZvcmVzdHxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60" />
-                </div>
-                <div class="image-column">
-                    <div class="overlay"><span class="glyphicon glyphicon-download"></span></div>
-                    <img src="https://images.unsplash.com/photo-1511207538754-e8555f2bc187?ixid=MXwxMjA3fDB8MHxzZWFyY2h8OHx8Zm9yZXN0fGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60" />
-                </div>
+                
+                @{    //<p>@Model.col1_ImgRecords[i].ImgID</p>
+                    for (int i = 0; i < Model.col1_ImgRecords.Count; i++)
+                    {
+                                <div class="image-column">
+                                    <div class="overlay"><span class="glyphicon glyphicon-download"></span></div>
+                                    <img src="@Model.col1_ImgRecords[i].ImgURL" />
+                                </div>
+                    }
+                }
             </div>
             <div class="col-4">
-                <div class="image-column">
-                    <div class="overlay"><span class="glyphicon glyphicon-download"></span></div>
-                    <img src="https://images.unsplash.com/photo-1511497584788-876760111969?ixid=MXwxMjA3fDB8MHxzZWFyY2h8NHx8Zm9yZXN0fGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60" />
-                </div>
-                <div class="image-column">
-                    <div class="overlay"><span class="glyphicon glyphicon-download"></span></div>
-                    <img src="https://images.unsplash.com/photo-1448375240586-882707db888b?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8Zm9yZXN0fGVufDB8fDB8&auto=format&fit=crop&w=800&q=60" />
-                </div>
-                <div class="image-column">
-                    <div class="overlay"><span class="glyphicon glyphicon-download"></span></div>
-                    <img src="https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Nnx8Zm9yZXN0fGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60" />
-                </div>
-
+                @{
+                    for (int i = 0; i < Model.col2_ImgRecords.Count; i++)
+                    {
+                        <div class="image-column">
+                            <div class="overlay"><span class="glyphicon glyphicon-download"></span></div>
+                            <img src="@Model.col2_ImgRecords[i].ImgURL" />
+                        </div>
+                    }
+                }
             </div>
             <div class="col-4">
-                <div class="image-column">
-                    <div class="overlay"><span class="glyphicon glyphicon-download"></span></div>
-                    <img src="https://images.unsplash.com/photo-1507041957456-9c397ce39c97?ixid=MXwxMjA3fDB8MHxzZWFyY2h8M3x8Zm9yZXN0fGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60" />
-                </div>
-                <div class="image-column">
-                    <div class="overlay"><span class="glyphicon glyphicon-download"></span></div>
-                    <img src="https://images.unsplash.com/photo-1503435980610-a51f3ddfee50?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Mnx8Zm9yZXN0fGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60" />
-                </div>
+                @{
+                    for (int i = 0; i < Model.col3_ImgRecords.Count; i++)
+                    {
+                        <div class="image-column">
+                            <div class="overlay"><span class="glyphicon glyphicon-download"></span></div>
+                            <img src="@Model.col3_ImgRecords[i].ImgURL" />
+                        </div>
+                    }
+                }
             </div>
         </div>
+               
+   
     </div>
 </div>

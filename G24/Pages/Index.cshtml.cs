@@ -21,6 +21,9 @@ namespace G24.Pages
         }
 
         public List<Images> ImgRecords { get; set; }
+        public List<Images> col1_ImgRecords { get; set; }
+        public List<Images> col2_ImgRecords { get; set; }
+        public List<Images> col3_ImgRecords { get; set; }
 
         [BindProperty(SupportsGet = true)]
         public string Type { get; set; }
@@ -85,7 +88,10 @@ namespace G24.Pages
                 SqlDataReader reader = command.ExecuteReader();
 
                 ImgRecords = new List<Images>();
-
+                col1_ImgRecords = new List<Images>();
+                col2_ImgRecords = new List<Images>();
+                col3_ImgRecords = new List<Images>();
+                int distributor = 1;
                 while (reader.Read())
                 {
                     Images record = new Images();
@@ -94,16 +100,31 @@ namespace G24.Pages
                     record.Type = reader.GetString(2);
                     record.ImgName = reader.GetString(3);
                     record.UserID = reader.GetInt32(4);
-
-
                     ImgRecords.Add(record);
+
+                    if (distributor == 1)
+                    {
+                        col1_ImgRecords.Add(record);
+                        distributor = 2;
+                        continue;
+                    }
+                    if (distributor == 2)
+                    {
+                        col2_ImgRecords.Add(record);
+                        distributor = 3;
+                        continue;
+                    }
+                    if (distributor == 3)
+                    {
+                        col3_ImgRecords.Add(record);
+                        distributor = 1;
+                        continue;
+                    }
+
                 }
 
 
-                //string[] s = Model.ImgRecords;
-                //String[] type_record = s.Distinct().ToArray();
-                //List<T> noDupes = Model.ImgRecords.Type.Distinct().ToList();
-                //var noDupes = Model.ImgRecords.Type.Distinct().ToList();
+            
                 ImageTypeFullSet = new List<string>();
 
                 for (int i = 0; i < ImgRecords.Count; i++)
@@ -124,3 +145,8 @@ namespace G24.Pages
         }
     }
 }
+
+
+
+
+

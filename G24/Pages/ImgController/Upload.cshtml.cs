@@ -4,9 +4,11 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using G24.Models;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.IO;
 
 namespace G24.Pages.ImgController
 {
@@ -15,7 +17,17 @@ namespace G24.Pages.ImgController
         [BindProperty]
         public Images ImgRecord { get; set; }
 
+        [BindProperty(SupportsGet =true)]
+        public IFormFile ImgFile { get; set; }
 
+        public readonly IWebHostEnvironment _env;
+
+        /*
+        public UploadFileModel(IWebHostEnvironment env)
+        {
+            _env = env;
+        }
+        */
         public IActionResult OnPost()
         {
             DBConnect G24database_connection = new DBConnect();
@@ -24,6 +36,17 @@ namespace G24.Pages.ImgController
 
             SqlConnection connect = new SqlConnection(DBconnection);
             connect.Open();
+
+            var FileToUpload = Path.Combine(_env.WebRootPath, "Files", ImgFile.FileName);
+            Console.WriteLine("File name" + FileToUpload);
+
+            using(var Fstream = new FileStream(FileToUpload, FileMode.Create))
+            {
+                ImgFile.CopyTo(Fstream);
+            }
+
+
+
 
             using (SqlCommand command = new SqlCommand())
             {
