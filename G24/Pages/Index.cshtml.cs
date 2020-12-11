@@ -42,7 +42,7 @@ namespace G24.Pages
         public List<String> ImageTypeFullSet { get; set; }
         public List<String> ImageTypeSingleSet { get; set; }
 
-        public IActionResult OnGet()
+        public IActionResult OnGet(string? ActiveType)
         {
 
             ActiveRecord = new SessionActive();
@@ -78,11 +78,22 @@ namespace G24.Pages
                 //sets all new users to a modlevel of 0
                 command.CommandText = @"SELECT * FROM Images";
 
+                SqlDataReader type_reader = command.ExecuteReader();
 
-                if (!(string.IsNullOrEmpty(Type) || Type == "ALL"))
+                ImageTypeFullSet = new List<string>();
+
+                while (type_reader.Read())
+                {
+                    ImageTypeFullSet.Add(type_reader.GetString(2));
+
+                }
+
+                type_reader.Close();
+
+                if (!(string.IsNullOrEmpty(ActiveType) || Type == "ALL"))
                 {
                     command.CommandText += " WHERE Type = @ImgType";
-                    command.Parameters.AddWithValue("@ImgType", Type);
+                    command.Parameters.AddWithValue("@ImgType", ActiveType);//Type
                 }
 
                 SqlDataReader reader = command.ExecuteReader();
@@ -123,14 +134,15 @@ namespace G24.Pages
 
                 }
 
+               
 
-            
-                ImageTypeFullSet = new List<string>();
-
+               
+                /*
                 for (int i = 0; i < ImgRecords.Count; i++)
                 {
                     ImageTypeFullSet.Add(ImgRecords[i].Type);
-                }
+                }*/
+
 
                 ImageTypeSingleSet = ImageTypeFullSet.Distinct().ToList();
 

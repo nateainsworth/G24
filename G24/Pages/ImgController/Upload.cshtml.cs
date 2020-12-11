@@ -22,12 +22,46 @@ namespace G24.Pages.ImgController
 
         public readonly IWebHostEnvironment _env;
 
-        
         public UploadModel(IWebHostEnvironment env)
         {
             _env = env;
         }
-        
+
+        [BindProperty]
+        public SessionActive ActiveRecord { get; set; }
+
+        public const string Session_SessionID = "sessionID";
+        public const string Session_EmailAddress = "emailAddress";
+        public const string Session_FirstName = "firstName";
+        public const string Session_ModLevel = "modLevel";
+
+        public IActionResult OnGet()
+        {
+
+            ActiveRecord = new SessionActive();
+
+            ActiveRecord.Active_SessionID = HttpContext.Session.GetString(Session_SessionID);
+            ActiveRecord.Active_EmailAddress = HttpContext.Session.GetString(Session_EmailAddress);
+            ActiveRecord.Active_FirstName = HttpContext.Session.GetString(Session_FirstName);
+            ActiveRecord.Active_ModLevel = HttpContext.Session.GetInt32(Session_ModLevel);
+
+
+            if (string.IsNullOrEmpty(ActiveRecord.Active_EmailAddress) && string.IsNullOrEmpty(ActiveRecord.Active_FirstName) && string.IsNullOrEmpty(ActiveRecord.Active_SessionID))
+            {
+                ActiveRecord.Active_Sesson = false;
+                return RedirectToPage("/Index");
+            }
+            else
+            {
+                ActiveRecord.Active_Sesson = true;
+
+            }
+
+            return Page();
+        }
+
+
+
         public IActionResult OnPost()
         {
             DBConnect G24database_connection = new DBConnect();
@@ -38,7 +72,7 @@ namespace G24.Pages.ImgController
             connect.Open();
 
             const string Path2 = "ImgUploads";
-            var FileToUpload = Path.Combine(_env.WebRootPath, Path2, ImgFile.FileName); //ImgFile.FileName
+            var FileToUpload = Path.Combine(_env.WebRootPath, Path2, ImgFile.FileName);
             Console.WriteLine("File name" + FileToUpload);
 
             using(var Fstream = new FileStream(FileToUpload, FileMode.Create))
@@ -75,42 +109,9 @@ namespace G24.Pages.ImgController
             connect.Close();
 
 
-            return RedirectToPage("/Index");
-        }
-
-
-        [BindProperty]
-        public SessionActive ActiveRecord { get; set; }
-
-        public const string Session_SessionID = "sessionID";
-        public const string Session_EmailAddress = "emailAddress";
-        public const string Session_FirstName = "firstName";
-        public const string Session_ModLevel = "modLevel";
-
-        public IActionResult OnGet()
-        {
-
-            ActiveRecord = new SessionActive();
-
-            ActiveRecord.Active_SessionID = HttpContext.Session.GetString(Session_SessionID);
-            ActiveRecord.Active_EmailAddress = HttpContext.Session.GetString(Session_EmailAddress);
-            ActiveRecord.Active_FirstName = HttpContext.Session.GetString(Session_FirstName);
-            ActiveRecord.Active_ModLevel = HttpContext.Session.GetInt32(Session_ModLevel);
-            
-
-            if (string.IsNullOrEmpty(ActiveRecord.Active_EmailAddress) && string.IsNullOrEmpty(ActiveRecord.Active_FirstName) && string.IsNullOrEmpty(ActiveRecord.Active_SessionID))
-            {
-                ActiveRecord.Active_Sesson = false;
-                return RedirectToPage("/Index");
-            }
-            else
-            {
-                ActiveRecord.Active_Sesson = true;
-                
-            }
-
             return Page();
         }
+
 
     }
    
