@@ -4,15 +4,20 @@
 }
 
 <div class="hero">
+   
     <h1 class="hero-text">Group24</h1>
-    <div class="hero-banner"></div>
+    <div class="hero-banner "></div>
 </div>
 <div class="wrapper">
     <div class="container">
+        <p>@Model.Request.QueryString
+        </p>
         <ul>
-            <li><a asp-page="/Index" asp-route-ActiveType="ALL">All</a></li>
+            <li><a asp-page="/Index">All</a></li>
             @for (int i = 0; i < Model.ImageTypeSingleSet.Count; i++)
             {
+               
+               
                 <li><a asp-page="/Index" asp-route-ActiveType="@Model.ImageTypeSingleSet[i]">@Model.ImageTypeSingleSet[i]</a></li>
             }
         </ul>

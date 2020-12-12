@@ -42,7 +42,9 @@ namespace G24.Pages
         public List<String> ImageTypeFullSet { get; set; }
         public List<String> ImageTypeSingleSet { get; set; }
 
-        public IActionResult OnGet(string? ActiveType)
+        public string ActiveType;
+
+        public IActionResult OnGet(string? ActiveType )
         {
 
             ActiveRecord = new SessionActive();
@@ -93,7 +95,7 @@ namespace G24.Pages
                 if (!(string.IsNullOrEmpty(ActiveType) || Type == "ALL"))
                 {
                     command.CommandText += " WHERE Type = @ImgType";
-                    command.Parameters.AddWithValue("@ImgType", ActiveType);//Type
+                    command.Parameters.AddWithValue("@ImgType", ActiveType);
                 }
 
                 SqlDataReader reader = command.ExecuteReader();
