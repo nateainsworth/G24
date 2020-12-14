@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using G24.Models;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -14,6 +16,15 @@ namespace G24.Pages.ImgController
     {
         [BindProperty]
         public Images ImgRecord { get; set; }
+       // public ImgFile ImgFile { get; set; }
+
+        public readonly IWebHostEnvironment _env;
+
+        //a constructor for the class
+        public DeleteModel(IWebHostEnvironment env)
+        {
+            _env = env;
+        }
 
         [BindProperty]
         public SessionActive ActiveRecord { get; set; }
@@ -63,6 +74,8 @@ namespace G24.Pages.ImgController
 
                 Console.WriteLine("The id: " + id);
 
+               // ImgFile = new ImgFile();
+
                 SqlDataReader reader = command.ExecuteReader();
 
                 while (reader.Read())
@@ -86,6 +99,13 @@ namespace G24.Pages.ImgController
 
         public IActionResult OnPost()
         {
+
+            deleteImg(ImgRecord.ImgID, ImgRecord.ImgURL);
+            return RedirectToPage("/ImgController/View");
+        }
+
+        public void deleteImg(int ImgID, string FileName)
+        {
             DBConnect G24database_connection = new DBConnect();
             string DBconnection = G24database_connection.DatabaseString();
             Console.WriteLine(DBconnection);
@@ -98,19 +118,20 @@ namespace G24.Pages.ImgController
 
                 command.Connection = connect;
                 //sets all new users to a modlevel of 0
-                command.CommandText = "DELETE Images WHERE ImgID = @ImgID";
+                command.CommandText = "DELETE FROM Images WHERE ImgID = @ImgID";
 
-                command.Parameters.AddWithValue("@ImgID", ImgRecord.ImgID);
+                command.Parameters.AddWithValue("@ImgID", ImgID);
                 command.ExecuteNonQuery();
 
             }
 
+            string ImgPath = Path.Combine(_env.WebRootPath, "ImgUploads", FileName);
+            System.IO.File.Delete(ImgPath);
+            Console.WriteLine("Image Deleted");
+
             connect.Close();
 
-
-            return RedirectToPage("/ImgController/View");
         }
-
 
 
 

@@ -78,7 +78,7 @@
     @if (controller == "/Index")
     {
         <div class="content">
-            <main role="main" class="pb-3">
+            <main role="main">
                 @RenderBody()
             </main>
         </div>
@@ -87,14 +87,12 @@
     else
     {
         <div class="container">
-            <main role="main" class="pb-3">
+            <main role="main">
                 @RenderBody()
             </main>
         </div>
     }
-        
-    }
-   
+
 
     <footer class="border-top footer text-muted">
         <div class="container">

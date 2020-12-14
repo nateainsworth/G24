@@ -7,13 +7,14 @@
 
 header {
     position: relative;
-    z-index: 10 !important;
+    z-index: 100 !important;
 }
 
 .hero {
     height: 100vh !important; /* this is important to cancel out the height given to container in the layout*/
     width: 100vw;
 }
+
 
 .hero-banner {
     position: fixed;
@@ -104,4 +105,8 @@ img {
     .main {
         margin-bottom:0;
         padding-bottom:0;
+    }
+
+    .img-view-display {
+        width: 10vw;
     }
