@@ -92,7 +92,7 @@ namespace G24.Pages.Login
                 }
                 else
                 {
-                    return RedirectToPage("/Users/Index");
+                    return RedirectToPage("/Index");
                 }
             }
             else

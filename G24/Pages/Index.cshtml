@@ -23,35 +23,35 @@
             }
         </ul>
         <div class="row">
-            <div class="col-4">
+            <div class="col-sm-4">
                 
                 @{    //<p>@Model.col1_ImgRecords[i].ImgID</p>
                     for (int i = 0; i < Model.col1_ImgRecords.Count; i++)
                     {
                                 <div class="image-column">
-                                    <div class="overlay"><span class="glyphicon glyphicon-download"></span></div>
+                                    <div class="overlay"><a asp-page="/ImgController/Index" asp-route-imgid="@Model.col1_ImgRecords[i].ImgID"><p>Download</p></a></div>
                                     <img src="~/ImgUploads/@Model.col1_ImgRecords[i].ImgURL" />
                                 </div>
                     }
                 }
             </div>
-            <div class="col-4">
+            <div class="col-sm-4">
                 @{
                     for (int i = 0; i < Model.col2_ImgRecords.Count; i++)
                     {
                         <div class="image-column">
-                            <div class="overlay"><span class="glyphicon glyphicon-download"></span></div>
+                            <div class="overlay"><a asp-page="/ImgController/Index" asp-route-imgid="@Model.col2_ImgRecords[i].ImgID"><p>Download</p></a></div>
                             <img src="~/ImgUploads/@Model.col2_ImgRecords[i].ImgURL" />
                         </div>
                     }
                 }
             </div>
-            <div class="col-4">
+            <div class="col-sm-4">
                 @{
                     for (int i = 0; i < Model.col3_ImgRecords.Count; i++)
                     {
                         <div class="image-column">
-                            <div class="overlay"><span class="glyphicon glyphicon-download"></span></div>
+                            <div class="overlay"><a asp-page="/ImgController/Index" asp-route-imgid="@Model.col3_ImgRecords[i].ImgID"><p>Download</p></a></div>
                             <img src="~/ImgUploads/@Model.col3_ImgRecords[i].ImgURL" />
                         </div>
                     }

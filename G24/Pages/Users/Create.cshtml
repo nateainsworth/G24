@@ -25,6 +25,18 @@
             <label>Password</label>
             <input type="text" asp-for="UserRecord.Password" class="form-control" />
         </div>
+        @if (Model.ActiveRecord.Active_ModLevel == 1)
+        {
+        <div class="form-group">
+            <label>Create Mod Account</label>
+            <select asp-for="UserRecord.ModLevel" class="form-control" >
+                <option>0</option>
+                <option>1</option>
+            </select>
+           
+        </div>
+        }
+
         <input type="submit" value="Sign Up" class="btn btn-secondary" />
     </form>
 

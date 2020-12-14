@@ -51,7 +51,7 @@ namespace G24.Pages.ImgController
             if (string.IsNullOrEmpty(ActiveRecord.Active_EmailAddress) && string.IsNullOrEmpty(ActiveRecord.Active_FirstName) && string.IsNullOrEmpty(ActiveRecord.Active_SessionID))
             {
                 ActiveRecord.Active_Sesson = false;
-                return RedirectToPage("/Index");
+                return RedirectToPage("/Login/Login");
             }
             else
             {

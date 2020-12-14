@@ -3,11 +3,17 @@
 @{
 }
 
-<h1>Your Account</h1>
+<h1>@Model.ImgRecord.ImgName</h1>
 
-<h2>Welcome @Model.ActiveRecord.Active_FirstName</h2>
 
-<h2>View Al Users</h2>
-<a asp-page="/Users/View">All Users</a>
+<div class="row">
+    <div class="col-md-4">
+        <img class="image-display" src="~/ImgUploads/@Model.ImgRecord.ImgURL" />
+    </div>
+    <div class="col-md-4">
+        <p>This image was uploaded by... @Model.UploadUser</p>
+        <p>Would you like to download this image?</p>
+        <a asp-page="/ImgController/Index" asp-route-imgid="@Model.ImgRecord.ImgID" asp-route-download="1"><p class="btn btn-primary">Download</p></a>
 
-<p><a asp-page="/Logout/Logout">Logout</a></p>
+</div>
+</div>

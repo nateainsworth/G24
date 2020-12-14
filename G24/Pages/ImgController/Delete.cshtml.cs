@@ -48,11 +48,15 @@ namespace G24.Pages.ImgController
             if (string.IsNullOrEmpty(ActiveRecord.Active_EmailAddress) && string.IsNullOrEmpty(ActiveRecord.Active_FirstName) && string.IsNullOrEmpty(ActiveRecord.Active_SessionID))
             {
                 ActiveRecord.Active_Sesson = false;
-
+                return RedirectToPage("/Login/Login");
             }
             else
             {
                 ActiveRecord.Active_Sesson = true;
+                if (ActiveRecord.Active_ModLevel != 1)
+                {
+                    return RedirectToPage("/Users/Index");
+                }
             }
 
             DBConnect G24database_connection = new DBConnect();
