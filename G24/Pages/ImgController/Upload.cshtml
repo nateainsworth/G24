@@ -22,7 +22,7 @@
             <label asp-for="ImgRecord.ImgName" class="custom-control-label"></label>
             <input type="text" asp-for="ImgRecord.ImgName" class="form-control" value="Mountain" />
         </div>
-        <input type="hidden" asp-for="ImgRecord.UserID" class="form-control" value="ActiveRecord.UserID" />
+        <input type="hidden" asp-for="ImgRecord.UserID" class="form-control" value="@Model.ActiveRecord.Active_UserID" />
         <input type="submit" value="Upload" class="btn btn-secondary" />
     </form>
     <br/>

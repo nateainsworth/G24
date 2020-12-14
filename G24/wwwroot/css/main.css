@@ -5,15 +5,28 @@
     overflow-x: hidden;
 }
 
+main {
+    padding-top: 60px;
+}
+
 header {
     position: relative;
     z-index: 100 !important;
+}
+
+.navbar {
+    z-index: 100;
+}
+
+.img-view-display {
+    width: 10vw !important;
 }
 
 .hero {
     height: 100vh !important; /* this is important to cancel out the height given to container in the layout*/
     width: 100vw;
 }
+
 
 
 .hero-banner {
@@ -105,8 +118,4 @@ img {
     .main {
         margin-bottom:0;
         padding-bottom:0;
-    }
-
-    .img-view-display {
-        width: 10vw;
     }

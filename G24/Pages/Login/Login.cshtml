@@ -10,13 +10,13 @@
         <form method="post">
             
             <div class="form-group">
-                <label asp-for="UserRecord.EmailAddress" class="custom-control-label">Login</label>
+                <label asp-for="UserRecord.EmailAddress" class="custom-control-label">Username</label>
                 <input type="text" asp-for="UserRecord.EmailAddress" class="form-control" />
                 <span asp-validation-for="UserRecord.EmailAddress" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="UserRecord.Password" class="custom-control-label">Login</label>
+                <label asp-for="UserRecord.Password" class="custom-control-label">Password</label>
                 <input type="text" asp-for="UserRecord.Password" class="form-control" />
                 <span asp-validation-for="UserRecord.Password" class="text-danger"></span>
             </div>

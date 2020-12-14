@@ -34,6 +34,7 @@ namespace G24.Pages.ImgController
         public const string Session_EmailAddress = "emailAddress";
         public const string Session_FirstName = "firstName";
         public const string Session_ModLevel = "modLevel";
+        public const string Session_UserID = "userID";
 
         public IActionResult OnGet()
         {
@@ -44,6 +45,7 @@ namespace G24.Pages.ImgController
             ActiveRecord.Active_EmailAddress = HttpContext.Session.GetString(Session_EmailAddress);
             ActiveRecord.Active_FirstName = HttpContext.Session.GetString(Session_FirstName);
             ActiveRecord.Active_ModLevel = HttpContext.Session.GetInt32(Session_ModLevel);
+            ActiveRecord.Active_ModLevel = HttpContext.Session.GetInt32(Session_UserID);
 
 
             if (string.IsNullOrEmpty(ActiveRecord.Active_EmailAddress) && string.IsNullOrEmpty(ActiveRecord.Active_FirstName) && string.IsNullOrEmpty(ActiveRecord.Active_SessionID))

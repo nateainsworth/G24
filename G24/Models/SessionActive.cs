@@ -16,6 +16,8 @@ namespace G24.Models
         public string Active_EmailAddress { get; set; }
         [Display(Name = "Mod Level")]
         public int? Active_ModLevel { get; set; }
+        [Display(Name = "User ID")]
+        public int? Active_UserID { get; set; }
 
         public bool Active_Sesson { get; set; }
         

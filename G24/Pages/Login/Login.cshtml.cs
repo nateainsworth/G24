@@ -24,6 +24,7 @@ namespace G24.Pages.Login
         public const string Session_EmailAddress = "emailAddress";
         public const string Session_FirstName = "firstName";
         public const string Session_ModLevel = "modLevel";
+        public const string Session_UserID = "userID";
 
         [BindProperty]
         public User UserRecord { get; set; }
@@ -81,6 +82,7 @@ namespace G24.Pages.Login
                HttpContext.Session.SetString("emailAddress", UserRecord.EmailAddress);
                HttpContext.Session.SetString("firstName", UserRecord.FirstName);
                HttpContext.Session.SetInt32("modLevel", UserRecord.ModLevel);
+               HttpContext.Session.SetInt32("userID", UserRecord.UserID);
 
 
 
@@ -111,7 +113,8 @@ namespace G24.Pages.Login
             ActiveRecord.Active_EmailAddress = HttpContext.Session.GetString(Session_EmailAddress);
             ActiveRecord.Active_FirstName = HttpContext.Session.GetString(Session_FirstName);
             ActiveRecord.Active_ModLevel = HttpContext.Session.GetInt32(Session_ModLevel);
-            
+            ActiveRecord.Active_ModLevel = HttpContext.Session.GetInt32(Session_UserID);
+
 
             if (string.IsNullOrEmpty(ActiveRecord.Active_EmailAddress) && string.IsNullOrEmpty(ActiveRecord.Active_FirstName) && string.IsNullOrEmpty(ActiveRecord.Active_SessionID))
             {
