@@ -54,6 +54,9 @@ header {
     mix-blend-mode: difference;
 }
 
+.img-upload-preview {
+    width: 200px;
+}
 
 .container div {
     height: auto;
