@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using G24.Models;
@@ -113,7 +114,7 @@ namespace G24.Pages.ImgController
                 
                 command.Parameters.AddWithValue("@ImgID", ImgRecord.ImgID);
                 command.Parameters.AddWithValue("@ImgURL", ImgRecord.ImgURL);
-                command.Parameters.AddWithValue("@Type", ImgRecord.Type);
+                command.Parameters.AddWithValue("@Type", Tidy_case(ImgRecord.Type));
                 command.Parameters.AddWithValue("@ImgName", ImgRecord.ImgName);
                 command.Parameters.AddWithValue("@UserID", ImgRecord.UserID);
 
@@ -128,7 +129,11 @@ namespace G24.Pages.ImgController
         }
 
 
-
+        // change the first letter to uppercase and the rest to lower case
+        public string Tidy_case(string str)
+        {
+            return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(str.ToLower());
+        }
 
     }
    

@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.IO;
+using System.Globalization;
 
 namespace G24.Pages.ImgController
 {
@@ -45,11 +46,11 @@ namespace G24.Pages.ImgController
             ActiveRecord.Active_EmailAddress = HttpContext.Session.GetString(Session_EmailAddress);
             ActiveRecord.Active_FirstName = HttpContext.Session.GetString(Session_FirstName);
             ActiveRecord.Active_ModLevel = HttpContext.Session.GetInt32(Session_ModLevel);
-            ActiveRecord.Active_ModLevel = HttpContext.Session.GetInt32(Session_UserID);
 
 
             if (string.IsNullOrEmpty(ActiveRecord.Active_EmailAddress) && string.IsNullOrEmpty(ActiveRecord.Active_FirstName) && string.IsNullOrEmpty(ActiveRecord.Active_SessionID))
             {
+              
                 ActiveRecord.Active_Sesson = false;
                 return RedirectToPage("/Login/Login");
             }
@@ -94,7 +95,7 @@ namespace G24.Pages.ImgController
 
                 
                 command.Parameters.AddWithValue("@ImgURL", ImgFile.FileName);
-                command.Parameters.AddWithValue("@Type", ImgRecord.Type);
+                command.Parameters.AddWithValue("@Type", Tidy_case(ImgRecord.Type));
                 command.Parameters.AddWithValue("@ImgName", ImgRecord.ImgName);
                 command.Parameters.AddWithValue("@UserID", ImgRecord.UserID);
 
@@ -110,9 +111,34 @@ namespace G24.Pages.ImgController
             }
             connect.Close();
 
+            ActiveRecord = new SessionActive();
 
+            ActiveRecord.Active_SessionID = HttpContext.Session.GetString(Session_SessionID);
+            ActiveRecord.Active_EmailAddress = HttpContext.Session.GetString(Session_EmailAddress);
+            ActiveRecord.Active_FirstName = HttpContext.Session.GetString(Session_FirstName);
+            ActiveRecord.Active_ModLevel = HttpContext.Session.GetInt32(Session_ModLevel);
+
+
+            if (string.IsNullOrEmpty(ActiveRecord.Active_EmailAddress) && string.IsNullOrEmpty(ActiveRecord.Active_FirstName) && string.IsNullOrEmpty(ActiveRecord.Active_SessionID))
+            {
+
+                ActiveRecord.Active_Sesson = false;
+                return RedirectToPage("/Login/Login");
+            }
+            else
+            {
+                ActiveRecord.Active_Sesson = true;
+
+            }
             return Page();
         }
+
+        // change the first letter to uppercase and the rest to lower case
+        public string Tidy_case(string str)
+        {
+            return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(str.ToLower());
+        }
+
 
 
     }

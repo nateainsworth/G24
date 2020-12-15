@@ -10,9 +10,9 @@
     <form>
         <select type="text" asp-for="Type" style="width:50px;">
             <option>ALL</option>
-            @for (int i = 0; i < Model.ImgRecords.Count; i++)
+            @for (int i = 0; i < Model.Img.Count; i++)
             {
-            <option>@Model.ImgRecords[i].Type</option>
+            <option>@Model.Img[i].Type</option>
             }
         </select>
         <input type="submit" value="Filter" />
@@ -20,36 +20,40 @@
 </div>
 <br />
 
-<div>
-    <table class="table table-active">
-        <thead>
-            <tr>
-                <th>@Html.DisplayNameFor(model => model.ImgRecords[0].ImgID)</th>
-                <th>@Html.DisplayNameFor(model => model.ImgRecords[1].ImgURL)</th>
-                <th>@Html.DisplayNameFor(model => model.ImgRecords[2].Type)</th>
-                <th>@Html.DisplayNameFor(model => model.ImgRecords[3].ImgName)</th>
-                <th>@Html.DisplayNameFor(model => model.ImgRecords[4].UserID)</th>
-                
-                <th>Actions</th>
+<form method="post">
+    <div>
+        <table class="table table-active">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Img[0].ImgID)</th>
+                    <th>@Html.DisplayNameFor(model => model.Img[0].ImgURL)</th>
+                    <th>@Html.DisplayNameFor(model => model.Img[0].Type)</th>
+                    <th>@Html.DisplayNameFor(model => model.Img[0].ImgName)</th>
+                    <th>@Html.DisplayNameFor(model => model.Img[0].UserID)</th>
+                    <th>Multiple Delete</th>
+                    <th>Actions</th>
 
 
-            </tr>
-        </thead>
-        @for (int i = 0; i < Model.ImgRecords.Count; i++)
-        {
-            <tr>
-                <td>@Model.ImgRecords[i].ImgID</td>
-                <td><img  class="img-view-display" src="~/ImgUploads/@Model.ImgRecords[i].ImgURL"/></td>
-                <td>@Model.ImgRecords[i].Type</td>
-                <td>@Model.ImgRecords[i].ImgName</td>
-                <td>@Model.ImgRecords[i].UserID</td>
-                
-                <td>
-                    <a asp-page="/ImgController/Update" asp-route-id="@Model.ImgRecords[i].ImgID">Update</a>
-                    <a asp-page="/ImgController/Delete" asp-route-id="@Model.ImgRecords[i].ImgID">Delete</a>
-                </td>
-            </tr>
-        }
+                </tr>
+            </thead>
+            @for (int i = 0; i < Model.Img.Count; i++)
+            {
+                <tr>
+                    <td><input type="hidden" asp-for=@Model.Img[i].ImgID/> @Model.Img[i].ImgID</td>
+                    <td><input type="hidden" asp-for=@Model.Img[i].ImgURL /><img class="img-view-display" src="~/ImgUploads/@Model.Img[i].ImgURL" /></td>
+                    <td><input type="hidden" asp-for=@Model.Img[i].Type />@Model.Img[i].Type</td>
+                    <td><input type="hidden" asp-for=@Model.Img[i].ImgName />@Model.Img[i].ImgName</td>
+                    <td><input type="hidden" asp-for=@Model.Img[i].UserID/>@Model.Img[i].UserID</td>
+                    <td>@Html.CheckBoxFor(model => model.IsSelect[i],new { @class = "form-control" })</td>
 
-    </table>
-</div>
+                    <td>
+                        <a asp-page="/ImgController/Update" asp-route-id="@Model.Img[i].ImgID">Update</a>
+                        <a asp-page="/ImgController/Delete" asp-route-id="@Model.Img[i].ImgID">Delete</a>
+                    </td>
+                </tr>
+            }
+
+        </table>
+        <div><input type="submit" value="Delete Selected" class="btn btn-danger"/></div>
+    </div>
+</form>

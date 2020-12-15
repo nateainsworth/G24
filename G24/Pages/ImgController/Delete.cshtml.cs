@@ -14,9 +14,9 @@ namespace G24.Pages.ImgController
 {
     public class DeleteModel : PageModel
     {
-        [BindProperty]
+        //[BindProperty]
         public Images ImgRecord { get; set; }
-       // public ImgFile ImgFile { get; set; }
+        public ImgFile ImgFile { get; set; }
 
         public readonly IWebHostEnvironment _env;
 
@@ -25,6 +25,7 @@ namespace G24.Pages.ImgController
         {
             _env = env;
         }
+
 
         [BindProperty]
         public SessionActive ActiveRecord { get; set; }

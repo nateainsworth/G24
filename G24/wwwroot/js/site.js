@@ -11,3 +11,10 @@ function readURL(input) {
     reader.readAsDataURL(input.files[0]);
 
 }
+
+window.onload = function () {
+
+    element = document.getElementById('site-loader')
+    element.classList.add("fade");
+
+};

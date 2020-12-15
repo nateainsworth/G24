@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using G24.Models;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -13,6 +15,23 @@ namespace G24.Pages.ImgController
 {
     public class ViewModel : PageModel
     {
+
+        public readonly IWebHostEnvironment _env;
+
+        //a constructor for the class
+        public ViewModel(IWebHostEnvironment env)
+        {
+            _env = env;
+        }
+
+        [BindProperty]
+        public List<Images> Img { get; set; }
+        
+        [BindProperty]
+        public List<bool> IsSelect { get; set; }
+
+        
+        public List<Images> ImgToDelete { get; set; }
 
         public List<Images> ImgRecords { get; set; }
 
@@ -65,7 +84,6 @@ namespace G24.Pages.ImgController
             {
 
                 command.Connection = connect;
-                //sets all new users to a modlevel of 0
                 command.CommandText = @"SELECT * FROM Images";
 
 
@@ -77,8 +95,8 @@ namespace G24.Pages.ImgController
 
                 SqlDataReader reader = command.ExecuteReader();
 
-                ImgRecords = new List<Images>();
-
+                Img = new List<Images>();
+                IsSelect = new List<bool>();
                 while (reader.Read())
                 {
                     Images record = new Images();
@@ -87,13 +105,13 @@ namespace G24.Pages.ImgController
                     record.Type = reader.GetString(2);
                     record.ImgName = reader.GetString(3);
                     record.UserID = reader.GetInt32(4);
-                    
 
-                    ImgRecords.Add(record);
+
+                    Img.Add(record);
+                    IsSelect.Add(false);
                 }
 
-              
-                reader.Close();
+               reader.Close();
                 
 
             }
@@ -101,6 +119,55 @@ namespace G24.Pages.ImgController
             return Page();
         }
 
-         
+
+        public IActionResult OnPost()
+        {
+            ImgToDelete = new List<Images>();
+            for(int i = 0; i < Img.Count; i++)
+            {
+                if(IsSelect[i] == true)
+                {
+                    ImgToDelete.Add(Img[i]);
+                }
+            }
+            for(int i=0; i < ImgToDelete.Count(); i++)
+            {
+                deleteImg(ImgToDelete[i].ImgID, ImgToDelete[i].ImgURL);
+            }
+            
+            return RedirectToPage("/ImgController/View");
+        }
+
+        public void deleteImg(int ImgID, string FileName)
+        {
+            DBConnect G24database_connection = new DBConnect();
+            string DBconnection = G24database_connection.DatabaseString();
+            Console.WriteLine(DBconnection);
+
+            SqlConnection connect = new SqlConnection(DBconnection);
+            connect.Open();
+
+            using (SqlCommand command = new SqlCommand())
+            {
+
+                command.Connection = connect;
+                //sets all new users to a modlevel of 0
+                command.CommandText = "DELETE FROM Images WHERE ImgID = @ImgID";
+
+                command.Parameters.AddWithValue("@ImgID", ImgID);
+                command.ExecuteNonQuery();
+
+            }
+
+            string ImgPath = Path.Combine(_env.WebRootPath, "ImgUploads", FileName);
+            System.IO.File.Delete(ImgPath);
+            Console.WriteLine("Image Deleted");
+
+            connect.Close();
+
+        }
+
+
+
     }
 }

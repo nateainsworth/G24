@@ -13,52 +13,52 @@
         <p>@{ //Model.Request.QueryString
         }
         </p>
-        <ul>
-            <li><a asp-page="/Index">All</a></li>
-            @for (int i = 0; i < Model.ImageTypeSingleSet.Count; i++)
-            {
-               
-               
-                <li><a asp-page="/Index" asp-route-ActiveType="@Model.ImageTypeSingleSet[i]">@Model.ImageTypeSingleSet[i]</a></li>
+       
+      
+    <ul class="nav justify-content-center">
+        <li class="nav-item"><a class="nav-link" asp-page="/Index">All</a></li>
+        @for (int i = 0; i < Model.ImageTypeSingleSet.Count; i++)
+        {
+            <li class="nav-item"><a class="nav-link" asp-page="/Index" asp-route-ActiveType="@Model.ImageTypeSingleSet[i]">@Model.ImageTypeSingleSet[i]</a></li>
+        }
+    </ul>
+    <div class="row">
+        <div class="col-sm-4">
+
+            @{ //<p>@Model.col1_ImgRecords[i].ImgID</p>
+                for (int i = 0; i < Model.col1_ImgRecords.Count; i++)
+                {
+                    <div class="image-column">
+                        <div class="overlay"><a asp-page="/ImgController/Index" asp-route-imgid="@Model.col1_ImgRecords[i].ImgID"><p>Download</p></a></div>
+                        <img src="~/ImgUploads/@Model.col1_ImgRecords[i].ImgURL" />
+                    </div>
+                }
             }
-        </ul>
-        <div class="row">
-            <div class="col-sm-4">
-                
-                @{    //<p>@Model.col1_ImgRecords[i].ImgID</p>
-                    for (int i = 0; i < Model.col1_ImgRecords.Count; i++)
-                    {
-                                <div class="image-column">
-                                    <div class="overlay"><a asp-page="/ImgController/Index" asp-route-imgid="@Model.col1_ImgRecords[i].ImgID"><p>Download</p></a></div>
-                                    <img src="~/ImgUploads/@Model.col1_ImgRecords[i].ImgURL" />
-                                </div>
-                    }
-                }
-            </div>
-            <div class="col-sm-4">
-                @{
-                    for (int i = 0; i < Model.col2_ImgRecords.Count; i++)
-                    {
-                        <div class="image-column">
-                            <div class="overlay"><a asp-page="/ImgController/Index" asp-route-imgid="@Model.col2_ImgRecords[i].ImgID"><p>Download</p></a></div>
-                            <img src="~/ImgUploads/@Model.col2_ImgRecords[i].ImgURL" />
-                        </div>
-                    }
-                }
-            </div>
-            <div class="col-sm-4">
-                @{
-                    for (int i = 0; i < Model.col3_ImgRecords.Count; i++)
-                    {
-                        <div class="image-column">
-                            <div class="overlay"><a asp-page="/ImgController/Index" asp-route-imgid="@Model.col3_ImgRecords[i].ImgID"><p>Download</p></a></div>
-                            <img src="~/ImgUploads/@Model.col3_ImgRecords[i].ImgURL" />
-                        </div>
-                    }
-                }
-            </div>
         </div>
-               
-   
+        <div class="col-sm-4">
+            @{
+                for (int i = 0; i < Model.col2_ImgRecords.Count; i++)
+                {
+                    <div class="image-column">
+                        <div class="overlay"><a asp-page="/ImgController/Index" asp-route-imgid="@Model.col2_ImgRecords[i].ImgID"><p>Download</p></a></div>
+                        <img src="~/ImgUploads/@Model.col2_ImgRecords[i].ImgURL" />
+                    </div>
+                }
+            }
+        </div>
+        <div class="col-sm-4">
+            @{
+                for (int i = 0; i < Model.col3_ImgRecords.Count; i++)
+                {
+                    <div class="image-column">
+                        <div class="overlay"><a asp-page="/ImgController/Index" asp-route-imgid="@Model.col3_ImgRecords[i].ImgID"><p>Download</p></a></div>
+                        <img src="~/ImgUploads/@Model.col3_ImgRecords[i].ImgURL" />
+                    </div>
+                }
+            }
+        </div>
     </div>
+
+
+</div>
 </div>

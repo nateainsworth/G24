@@ -5,6 +5,28 @@
     overflow-x: hidden;
 }
 
+
+#site-loader {
+    width: 100vw;
+    height: 100vh;
+    background-color: #ffffff;
+    top: 0px;
+    left: 0px;
+    z-index: 100;
+    position: fixed;
+}
+
+#loading-spinner {
+    top: 48%;
+    left: 48vw;
+    width: 4vw;
+    height: 4vw;
+    /*-webkit-transform: translate(-50%, -50%);*/
+    position: absolute;
+}
+
+
+
 main {
     padding-top: 60px;
 }
@@ -78,12 +100,15 @@ header {
 .wrapper {
     position: relative;
     z-index: 3;
-    padding: 10vh 0px;
+    padding: 5vh 0px;
     width: 100vw;
     height: auto;
     background: #ffffff;
 }
 
+.container .nav {
+    padding: 0px 0px 5vh 0px;
+}
 
 [class*="col-"] {
     padding: 0;
@@ -115,10 +140,61 @@ img {
         height: 100% !important;
         width: 100%;
         background-color: rgba(0,0,0,0.7)
+
     }
 
+.overlay {
+    visibility: hidden;
+}
 
     .main {
-        margin-bottom:0;
-        padding-bottom:0;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+
+    .overlay h3 {
+        position: absolute;
+        top: 30%;
+        left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        color: #ffffff;
     }
+
+.overlay p {
+    position: absolute;
+    bottom: 10%;
+    left: 50%;
+
+    -webkit-transform: translate(-50%, 50%);
+    color: #ffffff;
+}
+
+
+.image-column:hover .overlay, .image-column:hover .download-icon {
+    visibility: visible;
+}
+
+
+.fade {
+    animation: fade 4s ease both;
+    pointer-events: none;
+}
+
+
+@keyframes fade {
+    0% {
+        opacity: 1;
+    }
+
+    90% {
+        opacity: 0;
+        z-index: 200;
+    }
+
+    100% {
+        opacity: 0;
+        visibility: collapse;
+        z-index: -1;
+    }
+}

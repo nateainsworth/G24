@@ -13,6 +13,12 @@
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
 </head>
 <body>
+    <div id="site-loader">
+
+        <div id="loading-spinner" class="spinner-grow text-secondary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 fixed-top">
             <div class="container">
@@ -27,7 +33,6 @@
                             <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
                         </li>
                         @{
-
 
                             if (Model.ActiveRecord.Active_ModLevel == 1)
                             {
@@ -73,7 +78,7 @@
 
         //Get the current Page if index display a different layout.
 
-        
+
         var controller = ViewData.Model.HttpContext.HttpContext.Request.RouteValues.Values[0].ToString();
 
     }
