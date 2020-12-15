@@ -18,3 +18,11 @@ window.onload = function () {
     element.classList.add("fade");
 
 };
+
+function DeleteWarningPanel() {
+    var Modal = document.getElementById("DeleteModal");
+    Modal.classList.toggle("show");
+    var Modal_Backdrop = document.getElementById("modal-backdrop");
+    Modal_Backdrop.classList.toggle("show");
+    Modal_Backdrop.classList.toggle("hide");
+}

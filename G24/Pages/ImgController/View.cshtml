@@ -39,12 +39,12 @@
             @for (int i = 0; i < Model.Img.Count; i++)
             {
                 <tr>
-                    <td><input type="hidden" asp-for=@Model.Img[i].ImgID/> @Model.Img[i].ImgID</td>
+                    <td><input type="hidden" asp-for=@Model.Img[i].ImgID /> @Model.Img[i].ImgID</td>
                     <td><input type="hidden" asp-for=@Model.Img[i].ImgURL /><img class="img-view-display" src="~/ImgUploads/@Model.Img[i].ImgURL" /></td>
                     <td><input type="hidden" asp-for=@Model.Img[i].Type />@Model.Img[i].Type</td>
                     <td><input type="hidden" asp-for=@Model.Img[i].ImgName />@Model.Img[i].ImgName</td>
-                    <td><input type="hidden" asp-for=@Model.Img[i].UserID/>@Model.Img[i].UserID</td>
-                    <td>@Html.CheckBoxFor(model => model.IsSelect[i],new { @class = "form-control" })</td>
+                    <td><input type="hidden" asp-for=@Model.Img[i].UserID />@Model.Img[i].UserID</td>
+                    <td>@Html.CheckBoxFor(model => model.IsSelect[i], new { @class = "form-control" })</td>
 
                     <td>
                         <a asp-page="/ImgController/Update" asp-route-id="@Model.Img[i].ImgID">Update</a>
@@ -54,6 +54,29 @@
             }
 
         </table>
-        <div><input type="submit" value="Delete Selected" class="btn btn-danger"/></div>
+        <a class="btn btn-danger" onclick="DeleteWarningPanel()">Delete Selection</a>
+
+        <div id="DeleteModal" class="modal" tabindex="-1" role="dialog" aria-modal="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Delete Warning</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="DeleteWarningPanel()">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are you sure you want to delete?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit" value="Yes - Delete Images" class="btn btn-danger" />
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="DeleteWarningPanel()">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="modal-backdrop" class="modal-backdrop hide" onclick="DeleteWarningPanel()"></div>
+
+        <div></div>
     </div>
 </form>

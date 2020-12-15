@@ -76,6 +76,25 @@ header {
     mix-blend-mode: difference;
 }
 
+
+
+#DeleteModal.show {
+    display: block;
+}
+
+#modal-backdrop {
+    height: 100vh !important
+}
+
+#modal-backdrop.hide {
+    display: none;
+}
+
+#DeleteModal {
+    pointer-events: none;
+}
+
+
 .img-upload-preview {
     width: 200px;
 }
