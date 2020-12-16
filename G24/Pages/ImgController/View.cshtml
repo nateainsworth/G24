@@ -38,23 +38,22 @@
             </thead>
             @for (int i = 0; i < Model.Img.Count; i++)
             {
-                <tr>
-                    <td><input type="hidden" asp-for=@Model.Img[i].ImgID /> @Model.Img[i].ImgID</td>
-                    <td><input type="hidden" asp-for=@Model.Img[i].ImgURL /><img class="img-view-display" src="~/ImgUploads/@Model.Img[i].ImgURL" /></td>
-                    <td><input type="hidden" asp-for=@Model.Img[i].Type />@Model.Img[i].Type</td>
-                    <td><input type="hidden" asp-for=@Model.Img[i].ImgName />@Model.Img[i].ImgName</td>
-                    <td><input type="hidden" asp-for=@Model.Img[i].UserID />@Model.Img[i].UserID</td>
-                    <td>@Html.CheckBoxFor(model => model.IsSelect[i], new { @class = "form-control" })</td>
-
-                    <td>
-                        <a asp-page="/ImgController/Update" asp-route-id="@Model.Img[i].ImgID">Update</a>
-                        <a asp-page="/ImgController/Delete" asp-route-id="@Model.Img[i].ImgID">Delete</a>
-                    </td>
-                </tr>
+        <tr>
+            <td><input type="hidden" asp-for=@Model.Img[i].ImgID /> @Model.Img[i].ImgID</td>
+            <td><input type="hidden" asp-for=@Model.Img[i].ImgURL /><img id="img_ID_@i" class="img-view-display" src="~/ImgUploads/@Model.Img[i].ImgURL" /></td>
+            <td><input type="hidden" asp-for=@Model.Img[i].Type />@Model.Img[i].Type</td>
+            <td><input type="hidden" asp-for=@Model.Img[i].ImgName />@Model.Img[i].ImgName</td>
+            <td><input type="hidden" asp-for=@Model.Img[i].UserID />@Model.Img[i].UserID</td>
+            <td>@Html.CheckBoxFor(model => model.IsSelect[i], new { @class = "form-control" })</td>
+            <td>
+                <a asp-page="/ImgController/Update" asp-route-id="@Model.Img[i].ImgID">Update</a>
+                <a asp-page="/ImgController/Delete" asp-route-id="@Model.Img[i].ImgID">Delete</a>
+            </td>
+        </tr>
             }
 
         </table>
-        <a class="btn btn-danger" onclick="DeleteWarningPanel()">Delete Selection</a>
+        <button type="button" class="btn btn-danger"  onclick="DeleteWarningPanel()">Delete Selection</button>
 
         <div id="DeleteModal" class="modal" tabindex="-1" role="dialog" aria-modal="true">
             <div class="modal-dialog" role="document">
@@ -66,10 +65,14 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <p>Are you sure you want to delete?</p>
+                        <p id="DeleteMessage">Are you sure you want to delete?</p>
+                        <div class="delete_table_wrapper">
+                            <table id="deleteList">
+                            </table>
+                        </div>
                     </div>
                     <div class="modal-footer">
-                        <input type="submit" value="Yes - Delete Images" class="btn btn-danger" />
+                        <input type="submit" id="DeleteImgSubmit" value="Yes - Delete Images" class="btn btn-danger" />
                         <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="DeleteWarningPanel()">Close</button>
                     </div>
                 </div>

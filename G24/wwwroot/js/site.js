@@ -25,4 +25,44 @@ function DeleteWarningPanel() {
     var Modal_Backdrop = document.getElementById("modal-backdrop");
     Modal_Backdrop.classList.toggle("show");
     Modal_Backdrop.classList.toggle("hide");
+
+
+    var checkedBoxes = document.querySelectorAll('input[type="checkbox"]:checked');
+    if (checkedBoxes.length > 0) {
+
+        var tr = document.createElement('tr');
+        tr.setAttribute("class", "delete_table_row");
+        for (var i = 0; i < checkedBoxes.length; i++) {
+            //checkedBoxes[i].checked = true;   
+            var checkboxID = checkedBoxes[i].id;
+            var IDSplit = checkboxID.split('_');
+            var lineID = IDSplit[1];
+            console.log(lineID);
+
+            console.log(document.getElementById("img_ID_" + lineID).getAttribute('src'));
+            var td = document.createElement('td');
+            var div = document.createElement('div');
+            div.setAttribute("class", "delete_table_cont");
+            var p = document.createElement('p');
+            p.appendChild(document.createTextNode('Id of: ' + document.getElementById("Img_" + lineID + "__ImgID").value));
+            p.setAttribute("class", "delete_table_text");
+            var img = document.createElement("IMG");
+            img.setAttribute("class", "delete_table_img");
+            img.setAttribute("src", document.getElementById("img_ID_" + lineID).getAttribute('src'));
+            div.appendChild(img);
+            div.appendChild(p);
+            td.appendChild(div);//document.createTextNode('Id of:')
+
+            tr.appendChild(td);
+
+        }
+        // var deleteList = document.getElementById("DdeleteList");
+        document.getElementById('deleteList').innerHTML = "";
+        document.getElementById('deleteList').append(tr);
+        document.getElementById("DeleteMessage").innerHTML = "Are you sure you want to delete the list of images below?";
+        document.getElementById("DeleteImgSubmit").disabled = false;
+    } else {
+        document.getElementById("DeleteMessage").innerHTML = "No images selected";
+        document.getElementById("DeleteImgSubmit").disabled = true;
+    }
 }

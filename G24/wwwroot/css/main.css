@@ -76,7 +76,29 @@ header {
     mix-blend-mode: difference;
 }
 
+.delete_table_wrapper {
+    overflow-x: scroll !important;
+    width: 100%;
+}
 
+.delete_table_img {
+    height: 7vw;
+    width: auto;
+    padding: 0px 2px;
+}
+
+.delete_table_text {
+    position: absolute;
+    top: 10px;
+    left: 0px;
+    color: white;
+    width: 100%;
+    text-align: center;
+}
+
+.delete_table_row, .delete_table_cont {
+    position: relative;
+}
 
 #DeleteModal.show {
     display: block;
