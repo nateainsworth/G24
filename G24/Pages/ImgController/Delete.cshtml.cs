@@ -14,7 +14,7 @@ namespace G24.Pages.ImgController
 {
     public class DeleteModel : PageModel
     {
-        //[BindProperty]
+        [BindProperty]
         public Images ImgRecord { get; set; }
         public ImgFile ImgFile { get; set; }
 
@@ -104,8 +104,9 @@ namespace G24.Pages.ImgController
 
         public IActionResult OnPost()
         {
-
+            
             deleteImg(ImgRecord.ImgID, ImgRecord.ImgURL);
+
             return RedirectToPage("/ImgController/View");
         }
 

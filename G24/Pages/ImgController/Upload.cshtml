@@ -16,11 +16,11 @@
         </div>
         <div class="form-group">
             <label asp-for="ImgRecord.Type" class="custom-control-label"></label>
-            <input type="text" asp-for="ImgRecord.Type" class="form-control" value="Mountain" />
+            <input type="text" asp-for="ImgRecord.Type" class="form-control" placeholder="Forest, Sea, Mountain..." />
         </div>
         <div class="form-group">
             <label asp-for="ImgRecord.ImgName" class="custom-control-label"></label>
-            <input type="text" asp-for="ImgRecord.ImgName" class="form-control" value="Mountain" />
+            <input type="text" asp-for="ImgRecord.ImgName" class="form-control" placeholder="Image name" />
         </div>
         <input type="hidden" asp-for="ImgRecord.UserID" class="form-control" value="@Model.ActiveRecord.Active_UserID" />
         <input type="submit" value="Upload" class="btn btn-secondary" />

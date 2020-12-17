@@ -37,6 +37,8 @@ namespace G24.Pages.ImgController
         public const string Session_ModLevel = "modLevel";
         public const string Session_UserID = "userID";
 
+
+        public Int32 uploadID;
         public IActionResult OnGet()
         {
 
@@ -109,7 +111,7 @@ namespace G24.Pages.ImgController
                 command.ExecuteNonQuery();
 
             }
-            connect.Close();
+            
 
             ActiveRecord = new SessionActive();
 
@@ -130,7 +132,30 @@ namespace G24.Pages.ImgController
                 ActiveRecord.Active_Sesson = true;
 
             }
-            return Page();
+
+
+
+            using (SqlCommand ID_command = new SqlCommand())
+            {
+
+                ID_command.Connection = connect;
+                ID_command.CommandText = @"SELECT ImgID FROM Images WHERE ImgURL = @ImgURL";
+
+
+                ID_command.Parameters.AddWithValue("@ImgURL", ImgFile.FileName);
+                SqlDataReader ID_reader = ID_command.ExecuteReader();
+
+                while (ID_reader.Read())
+                {
+
+                    uploadID = ID_reader.GetInt32(0);
+                }
+               
+            }
+            connect.Close();
+
+            //return RedirectToPage("/ImgController?imgid=" + uploadID);
+            return RedirectToPage("/ImgController/Index", new { imgid = uploadID });
         }
 
         // change the first letter to uppercase and the rest to lower case

@@ -48,6 +48,10 @@ namespace G24.Pages.ImgController
         public const string Session_FirstName = "firstName";
         public const string Session_ModLevel = "modLevel";
 
+        public List<String> ImageTypeFullSet { get; set; }
+        public List<String> ImageTypeSingleSet { get; set; }
+
+        public string ActiveType;
 
         public IActionResult OnGet()
         {
@@ -86,6 +90,17 @@ namespace G24.Pages.ImgController
                 command.Connection = connect;
                 command.CommandText = @"SELECT * FROM Images";
 
+                SqlDataReader type_reader = command.ExecuteReader();
+
+                ImageTypeFullSet = new List<string>();
+
+                while (type_reader.Read())
+                {
+                    ImageTypeFullSet.Add(type_reader.GetString(2));
+
+                }
+
+                type_reader.Close();
 
                 if (!(string.IsNullOrEmpty(Type) || Type == "ALL"))
                 {
@@ -112,7 +127,7 @@ namespace G24.Pages.ImgController
                 }
 
                reader.Close();
-                
+                ImageTypeSingleSet = ImageTypeFullSet.Distinct().ToList();
 
             }
 

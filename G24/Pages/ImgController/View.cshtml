@@ -3,16 +3,16 @@
 @{
 }
 
-
+<h1>View Uploaded Images</h1>
 
 <div>
     <p>Filter By Image Type : </p>
     <form>
         <select type="text" asp-for="Type" style="width:50px;">
             <option>ALL</option>
-            @for (int i = 0; i < Model.Img.Count; i++)
+            @for (int i = 0; i < Model.ImageTypeSingleSet.Count; i++)
             {
-            <option>@Model.Img[i].Type</option>
+                <li class="nav-item"><a class="nav-link" asp-page="/Index" asp-route-ActiveType="@Model.ImageTypeSingleSet[i]">@Model.ImageTypeSingleSet[i]</a></li>
             }
         </select>
         <input type="submit" value="Filter" />
