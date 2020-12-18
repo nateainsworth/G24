@@ -88,7 +88,7 @@ namespace G24.Pages.Login
 
                 if (UserRecord.ModLevel == 1)
                 {
-                    return RedirectToPage("/Users/View");
+                    return RedirectToPage("/Users/Index");
                 }
                 else
                 {

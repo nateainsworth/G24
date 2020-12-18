@@ -33,15 +33,23 @@
                             <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
                         </li>
                         @{
-
+                            //Display Admin panel and view all images for admin users
                             if (Model.ActiveRecord.Active_ModLevel == 1)
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-page="/Users/View">Admin Panel</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-page="/Users/Index">Admin Panel</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-page="/ImgController/View">Images</a>
                                 </li>
+                            }
+                            //Display account for none moderators
+                            if(Model.ActiveRecord.Active_ModLevel == 0){
+
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-page="/Users/Index">Acount</a>
+                                </li>
+                                
                             }
 
                             if (Model.ActiveRecord.Active_Sesson == false || Model.ActiveRecord.Active_Sesson == null)
@@ -64,9 +72,7 @@
 
                         }
 
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Users/Index">Acount</a>
-                        </li>
+
                     </ul>
                 </div>
             </div>
