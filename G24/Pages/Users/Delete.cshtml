@@ -3,22 +3,22 @@
 @{
 }
 
-<h1>Delete User</h1>
 
-<h2 class="text-danger">Are you sure you want to delete the record?</h2>
+<div class="card">
+    <div class="card-header"><h1>Delete User</h1></div>
+    <div class="card-body">
 
-<div class="table-active">
-    <div>
-        <label asp-for="UserRecord.UserID"></label>
-        <span> : </span>
-        @Model.UserRecord.UserID
-
+        <h3 class="text-danger" id="Error">Are you sure you want to delete this User?</h3>
+        <div>
+            <label asp-for="@Model.UserRecord.UserID" id="ImageID"> User ID </label>
+            <span> : </span>
+            @Model.UserRecord.UserID
+        </div>
+        <div>
+            <form method="post">
+                <input type="hidden" asp-for="UserRecord.UserID" />
+                <input type="submit" value="Delete" class="btn btn-danger" />
+            </form>
+        </div>
     </div>
-    <div>
-        <form method="post">
-            <input type="hidden" asp-for="UserRecord.UserID"/>
-            <input type="submit" value="Delete" class="btn btn-danger" />
-        </form>
-    </div>
-
 </div>

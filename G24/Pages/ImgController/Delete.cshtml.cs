@@ -37,15 +37,15 @@ namespace G24.Pages.ImgController
 
         public IActionResult OnGet(int? id)
         {
-
+            // get session variables
             ActiveRecord = new SessionActive();
 
             ActiveRecord.Active_SessionID = HttpContext.Session.GetString(Session_SessionID);
             ActiveRecord.Active_EmailAddress = HttpContext.Session.GetString(Session_EmailAddress);
             ActiveRecord.Active_FirstName = HttpContext.Session.GetString(Session_FirstName);
             ActiveRecord.Active_ModLevel = HttpContext.Session.GetInt32(Session_ModLevel);
-           
 
+            // if session isn't active then redirect to login page if not a mod then send to account page
             if (string.IsNullOrEmpty(ActiveRecord.Active_EmailAddress) && string.IsNullOrEmpty(ActiveRecord.Active_FirstName) && string.IsNullOrEmpty(ActiveRecord.Active_SessionID))
             {
                 ActiveRecord.Active_Sesson = false;
@@ -60,9 +60,10 @@ namespace G24.Pages.ImgController
                 }
             }
 
+            //opensa a database connection
             DBConnect G24database_connection = new DBConnect();
             string DBconnection = G24database_connection.DatabaseString();
-            Console.WriteLine(DBconnection);
+           
 
             SqlConnection connect = new SqlConnection(DBconnection);
             connect.Open();
@@ -72,14 +73,10 @@ namespace G24.Pages.ImgController
             using (SqlCommand command = new SqlCommand())
             {
                 command.Connection = connect;
-                //sets all new users to a modlevel of 0
+                //select the details for the image which is being deleted.
                 command.CommandText = "SELECT * FROM Images WHERE ImgID = @ID";
 
                 command.Parameters.AddWithValue("@ID", id);
-
-                Console.WriteLine("The id: " + id);
-
-               // ImgFile = new ImgFile();
 
                 SqlDataReader reader = command.ExecuteReader();
 
@@ -112,9 +109,9 @@ namespace G24.Pages.ImgController
 
         public void deleteImg(int ImgID, string FileName)
         {
+            //create a database connection
             DBConnect G24database_connection = new DBConnect();
             string DBconnection = G24database_connection.DatabaseString();
-            Console.WriteLine(DBconnection);
 
             SqlConnection connect = new SqlConnection(DBconnection);
             connect.Open();
@@ -123,7 +120,7 @@ namespace G24.Pages.ImgController
             {
 
                 command.Connection = connect;
-                //sets all new users to a modlevel of 0
+                // delete from images where the img id matches the id within the hidden input in the form element
                 command.CommandText = "DELETE FROM Images WHERE ImgID = @ImgID";
 
                 command.Parameters.AddWithValue("@ImgID", ImgID);
@@ -131,9 +128,9 @@ namespace G24.Pages.ImgController
 
             }
 
+            // get the file path and delete the image file assosiated to the line in the database being deleted
             string ImgPath = Path.Combine(_env.WebRootPath, "ImgUploads", FileName);
             System.IO.File.Delete(ImgPath);
-            Console.WriteLine("Image Deleted");
 
             connect.Close();
 

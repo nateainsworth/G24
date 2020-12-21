@@ -25,15 +25,15 @@ namespace G24.Pages.Users
 
         public IActionResult OnGet(int? id)
         {
-
+            // get session variables
             ActiveRecord = new SessionActive();
 
             ActiveRecord.Active_SessionID = HttpContext.Session.GetString(Session_SessionID);
             ActiveRecord.Active_EmailAddress = HttpContext.Session.GetString(Session_EmailAddress);
             ActiveRecord.Active_FirstName = HttpContext.Session.GetString(Session_FirstName);
             ActiveRecord.Active_ModLevel = HttpContext.Session.GetInt32(Session_ModLevel);
-           
 
+            // if session isn't active then redirect to login page
             if (string.IsNullOrEmpty(ActiveRecord.Active_EmailAddress) && string.IsNullOrEmpty(ActiveRecord.Active_FirstName) && string.IsNullOrEmpty(ActiveRecord.Active_SessionID))
             {
                 ActiveRecord.Active_Sesson = false;
@@ -47,10 +47,10 @@ namespace G24.Pages.Users
                     return RedirectToPage("/Users/Index");
                 }
             }
-
+            // get database connection
             DBConnect G24database_connection = new DBConnect();
             string DBconnection = G24database_connection.DatabaseString();
-            Console.WriteLine(DBconnection);
+            
 
             SqlConnection connect = new SqlConnection(DBconnection);
             connect.Open();
@@ -60,13 +60,12 @@ namespace G24.Pages.Users
             using (SqlCommand command = new SqlCommand())
             {
                 command.Connection = connect;
-                //sets all new users to a modlevel of 0
+                // select all from database where id = id
                 command.CommandText = "SELECT * FROM Users WHERE UserID = @ID";
 
                 command.Parameters.AddWithValue("@ID", id);
 
-                Console.WriteLine("The id: " + id);
-
+                // execute the SQL command
                 SqlDataReader reader = command.ExecuteReader();
 
                 while (reader.Read())
@@ -83,6 +82,8 @@ namespace G24.Pages.Users
 
 
             }
+
+            // close connection
             connect.Close();
 
 
@@ -91,18 +92,19 @@ namespace G24.Pages.Users
 
         public IActionResult OnPost()
         {
+            // open database 
             DBConnect G24database_connection = new DBConnect();
             string DBconnection = G24database_connection.DatabaseString();
-            Console.WriteLine(DBconnection);
+            
 
             SqlConnection connect = new SqlConnection(DBconnection);
             connect.Open();
 
+
             using (SqlCommand command = new SqlCommand())
             {
-
+                // Delete users where user id = id
                 command.Connection = connect;
-                //sets all new users to a modlevel of 0
                 command.CommandText = "DELETE Users WHERE UserID = @UID";
 
                 command.Parameters.AddWithValue("@UID", UserRecord.UserID);

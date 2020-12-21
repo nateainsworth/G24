@@ -28,15 +28,16 @@ namespace G24.Pages.Users
         {
 
             ActiveRecord = new SessionActive();
-
+            // gets the active session records
             ActiveRecord.Active_SessionID = HttpContext.Session.GetString(Session_SessionID);
             ActiveRecord.Active_EmailAddress = HttpContext.Session.GetString(Session_EmailAddress);
             ActiveRecord.Active_FirstName = HttpContext.Session.GetString(Session_FirstName);
             ActiveRecord.Active_ModLevel = HttpContext.Session.GetInt32(Session_ModLevel);
             
-
+            // checks if a session exists 
             if (string.IsNullOrEmpty(ActiveRecord.Active_EmailAddress) && string.IsNullOrEmpty(ActiveRecord.Active_FirstName) && string.IsNullOrEmpty(ActiveRecord.Active_SessionID))
             {
+                // if no session exists sends users to login
                 ActiveRecord.Active_Sesson = false;
                 return RedirectToPage("/Login/Login");
             }
@@ -45,14 +46,16 @@ namespace G24.Pages.Users
                 ActiveRecord.Active_Sesson = true;
                 if (ActiveRecord.Active_ModLevel != 1)
                 {
+                    // if logged in and not a admin direct to account page
                     return RedirectToPage("/Users/Index");
                 }
             }
 
+            // creates connection to database
             DBConnect G24database_connection = new DBConnect();
             string DBconnection = G24database_connection.DatabaseString();
-            Console.WriteLine(DBconnection);
-
+            
+            // opens an sql connection
             SqlConnection connect = new SqlConnection(DBconnection);
             connect.Open();
 
@@ -60,16 +63,16 @@ namespace G24.Pages.Users
 
             using (SqlCommand command = new SqlCommand())
             {
+               
                 command.Connection = connect;
-                //sets all new users to a modlevel of 0
+                // selects all users from the database where the user id = ID 
                 command.CommandText = "SELECT * FROM Users WHERE UserID = @ID";
 
                 command.Parameters.AddWithValue("@ID", id);
 
-                Console.WriteLine("The id: " + id);
-
                 SqlDataReader reader = command.ExecuteReader();
 
+                //writes records into the user record array 
                 while (reader.Read())
                 {
                     UserRecord.UserID = reader.GetInt32(0);
@@ -86,7 +89,7 @@ namespace G24.Pages.Users
             }
             connect.Close();
 
-
+            // returns the page
             return Page();
         }
 
@@ -94,24 +97,17 @@ namespace G24.Pages.Users
         {
             DBConnect G24database_connection = new DBConnect();
             string DBconnection = G24database_connection.DatabaseString();
-            Console.WriteLine(DBconnection);
+            
 
             SqlConnection connect = new SqlConnection(DBconnection);
             connect.Open();
-
-            Console.WriteLine("User ID" + UserRecord.UserID);
-            Console.WriteLine("User First Name" + UserRecord.FirstName);
-            Console.WriteLine("User Last Name" + UserRecord.LastName);
-            Console.WriteLine("User Email Address" + UserRecord.EmailAddress);
-            Console.WriteLine("User Password" + UserRecord.Password);
-            Console.WriteLine("User Mod Level" + UserRecord.ModLevel);
 
 
             using (SqlCommand command = new SqlCommand())
             {
 
                 command.Connection = connect;
-                //sets all new users to a modlevel of 0
+                // Update Users where the ID matches
                 command.CommandText = "UPDATE Users SET FirstName = @FName, LastName = @LName, EmailAddress = @Email, Password = @Password, ModLevel = @ModLevel WHERE UserID = @UID";
 
                 command.Parameters.AddWithValue("@UID", UserRecord.UserID);
@@ -121,7 +117,7 @@ namespace G24.Pages.Users
                 command.Parameters.AddWithValue("@Password", UserRecord.Password);
                 command.Parameters.AddWithValue("@ModLevel", UserRecord.ModLevel);
 
-
+                // execute  
                 command.ExecuteNonQuery();
 
             }

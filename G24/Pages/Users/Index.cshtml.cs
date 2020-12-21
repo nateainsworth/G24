@@ -22,7 +22,7 @@ namespace G24.Pages.Users
 
         public IActionResult OnGet()
         {
-
+            // get session variables
             ActiveRecord = new SessionActive();
 
             ActiveRecord.Active_SessionID = HttpContext.Session.GetString(Session_SessionID);
@@ -30,6 +30,7 @@ namespace G24.Pages.Users
             ActiveRecord.Active_FirstName = HttpContext.Session.GetString(Session_FirstName);
             ActiveRecord.Active_ModLevel = HttpContext.Session.GetInt32(Session_ModLevel);
 
+            // if session isn't active then redirect to login page
             if (string.IsNullOrEmpty(ActiveRecord.Active_EmailAddress) && string.IsNullOrEmpty(ActiveRecord.Active_FirstName) && string.IsNullOrEmpty(ActiveRecord.Active_SessionID))
             {
                 ActiveRecord.Active_Sesson = false;

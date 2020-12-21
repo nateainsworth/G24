@@ -10,14 +10,14 @@
 </div>
 <div class="wrapper">
     <div class="container">
-        <p>@{ //Model.Request.QueryString
+        <p>@{ 
         }
         </p>
        
       
     <ul class="nav justify-content-center">
         <li class="nav-item"><a class="nav-link" asp-page="/Index">All</a></li>
-        @for (int i = 0; i < Model.ImageTypeSingleSet.Count; i++)
+        @for (int i = 0; i < Model.ImageTypeSingleSet.Count; i++) // loop through the available types of images uploaded and display them in a list
         {
             <li class="nav-item"><a class="nav-link" asp-page="/Index" asp-route-ActiveType="@Model.ImageTypeSingleSet[i]">@Model.ImageTypeSingleSet[i]</a></li>
         }
@@ -25,7 +25,7 @@
     <div class="row">
         <div class="col-sm-4">
 
-            @{ //<p>@Model.col1_ImgRecords[i].ImgID</p>
+            @{ // Spreads the images out across 3 different columns, Loops through the array of data for each column to display the images 
                 for (int i = 0; i < Model.col1_ImgRecords.Count; i++)
                 {
                     <div class="image-column">
@@ -36,7 +36,7 @@
             }
         </div>
         <div class="col-sm-4">
-            @{
+            @{ //again for column 2
                 for (int i = 0; i < Model.col2_ImgRecords.Count; i++)
                 {
                     <div class="image-column">
@@ -47,7 +47,7 @@
             }
         </div>
         <div class="col-sm-4">
-            @{
+            @{ //and again for column 3
                 for (int i = 0; i < Model.col3_ImgRecords.Count; i++)
                 {
                     <div class="image-column">

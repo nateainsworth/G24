@@ -12,7 +12,21 @@ function readURL(input) {
 
 }
 
+
+
 window.onload = function () {
+
+
+    
+
+    var error_elm = document.getElementById('login-error');
+    if (error_elm) {
+        var isEmpty = error_elm.innerHTML === "";
+        if (isEmpty) {
+            document.getElementById('login-error').classList.add("hide");
+        }
+    }
+
 
     element = document.getElementById('site-loader')
     element.classList.add("fade");
@@ -32,14 +46,13 @@ function DeleteWarningPanel() {
 
         var tr = document.createElement('tr');
         tr.setAttribute("class", "delete_table_row");
+
         for (var i = 0; i < checkedBoxes.length; i++) {
             //checkedBoxes[i].checked = true;   
             var checkboxID = checkedBoxes[i].id;
             var IDSplit = checkboxID.split('_');
             var lineID = IDSplit[1];
-            console.log(lineID);
 
-            console.log(document.getElementById("img_ID_" + lineID).getAttribute('src'));
             var td = document.createElement('td');
             var div = document.createElement('div');
             div.setAttribute("class", "delete_table_cont");

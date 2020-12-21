@@ -10,7 +10,7 @@
     <li><a asp-page="/Logout/Logout">Logout</a></li>
 </ul>
 
-@if (Model.ActiveRecord.Active_ModLevel == 1)
+@if (Model.ActiveRecord.Active_ModLevel == 1) // if logged in as an admin diaplsy admin options
 {
     <h2>Admin Options</h2>
     <ul>

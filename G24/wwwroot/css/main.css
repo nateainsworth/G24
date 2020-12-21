@@ -239,3 +239,32 @@ img {
         z-index: -1;
     }
 }
+
+.login-error {
+    margin: 10px;
+}
+
+
+.login-bttons {
+    margin-right: 10px;
+}
+
+
+.login-card {
+    margin-top: 120px;
+}
+
+.login-error.hide{
+    display:none;
+}
+
+
+.image-display {
+    overflow: hidden;
+    width: 100%;
+}
+
+.img-card {
+    margin-top: 120px;
+    margin-bottom: 60px;
+}

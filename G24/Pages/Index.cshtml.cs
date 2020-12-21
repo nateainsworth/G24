@@ -46,7 +46,7 @@ namespace G24.Pages
 
         public IActionResult OnGet(string? ActiveType )
         {
-
+            // checks if there is an active session
             ActiveRecord = new SessionActive();
 
             ActiveRecord.Active_SessionID = HttpContext.Session.GetString(Session_SessionID);
@@ -54,7 +54,7 @@ namespace G24.Pages
             ActiveRecord.Active_FirstName = HttpContext.Session.GetString(Session_FirstName);
             ActiveRecord.Active_ModLevel = HttpContext.Session.GetInt32(Session_ModLevel);
             
-
+            // acts on if there is an active session or not
             if (string.IsNullOrEmpty(ActiveRecord.Active_EmailAddress) && string.IsNullOrEmpty(ActiveRecord.Active_FirstName) && string.IsNullOrEmpty(ActiveRecord.Active_SessionID))
             {
                 ActiveRecord.Active_Sesson = false;
@@ -65,7 +65,7 @@ namespace G24.Pages
             }
 
 
-
+            //connects to database
             DBConnect G24database_connection = new DBConnect();
             string DBconnection = G24database_connection.DatabaseString();
             Console.WriteLine(DBconnection);
@@ -77,7 +77,8 @@ namespace G24.Pages
             {
 
                 command.Connection = connect;
-                //sets all new users to a modlevel of 0
+
+                //starts building the command to Select all images from the database
                 command.CommandText = @"SELECT * FROM Images";
 
                 SqlDataReader type_reader = command.ExecuteReader();
@@ -86,25 +87,32 @@ namespace G24.Pages
 
                 while (type_reader.Read())
                 {
+                    // loops through the types of images available and adds the type into a variable e.g. forest, sea, desert etc.
                     ImageTypeFullSet.Add(type_reader.GetString(2));
 
                 }
 
                 type_reader.Close();
-
+                
+                // checks if a filter has been set for displaying a specific image type
                 if (!(string.IsNullOrEmpty(ActiveType) || Type == "ALL"))
                 {
+                    // adds to the database command to select all from images where type = the selected filter
                     command.CommandText += " WHERE Type = @ImgType";
                     command.Parameters.AddWithValue("@ImgType", ActiveType);
                 }
-
+                // executes the database command
                 SqlDataReader reader = command.ExecuteReader();
 
                 ImgRecords = new List<Images>();
                 col1_ImgRecords = new List<Images>();
                 col2_ImgRecords = new List<Images>();
                 col3_ImgRecords = new List<Images>();
+
+                // distributer is set for looping through the images and distributing them across the 3 collumns
                 int distributor = 1;
+
+                //loops through the data returned from the database
                 while (reader.Read())
                 {
                     Images record = new Images();
@@ -117,18 +125,22 @@ namespace G24.Pages
 
                     if (distributor == 1)
                     {
+                        // distributes the image into column 1 and changes the distribution to 2 so the next image goes into the next column, 
+                        // it then jumps back to the start of the loop or it would carry on and be placd in column 2 qnd column 3
                         col1_ImgRecords.Add(record);
                         distributor = 2;
                         continue;
                     }
                     if (distributor == 2)
                     {
+                        // simliar to the above i statement if gets images and seves them into column 2 but tells the file to save into column 3 next
                         col2_ImgRecords.Add(record);
                         distributor = 3;
                         continue;
                     }
                     if (distributor == 3)
                     {
+                        //after column 3 has saved an image it has to tell the functon to save to column one next and it repeats the porcess through each column untill all images are loaded.
                         col3_ImgRecords.Add(record);
                         distributor = 1;
                         continue;
@@ -138,14 +150,7 @@ namespace G24.Pages
 
                
 
-               
-                /*
-                for (int i = 0; i < ImgRecords.Count; i++)
-                {
-                    ImageTypeFullSet.Add(ImgRecords[i].Type);
-                }*/
-
-
+                // this gets the list of types available within the database and deletes duplicates.
                 ImageTypeSingleSet = ImageTypeFullSet.Distinct().ToList();
 
                 reader.Close();

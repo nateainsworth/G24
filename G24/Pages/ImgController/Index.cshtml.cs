@@ -37,7 +37,7 @@ namespace G24.Pages.ImgController
 
         public async Task<IActionResult> OnGetAsync(int? imgid, int? download)
         {
-
+            // get session variables
             ActiveRecord = new SessionActive();
 
             ActiveRecord.Active_SessionID = HttpContext.Session.GetString(Session_SessionID);
@@ -45,6 +45,7 @@ namespace G24.Pages.ImgController
             ActiveRecord.Active_FirstName = HttpContext.Session.GetString(Session_FirstName);
             ActiveRecord.Active_ModLevel = HttpContext.Session.GetInt32(Session_ModLevel);
 
+            // if session isn't active then redirect to login page
             if (string.IsNullOrEmpty(ActiveRecord.Active_EmailAddress) && string.IsNullOrEmpty(ActiveRecord.Active_FirstName) && string.IsNullOrEmpty(ActiveRecord.Active_SessionID))
             {
                 ActiveRecord.Active_Sesson = false;
@@ -58,7 +59,7 @@ namespace G24.Pages.ImgController
 
             DBConnect G24database_connection = new DBConnect();
             string DBconnection = G24database_connection.DatabaseString();
-            Console.WriteLine(DBconnection);
+
 
             SqlConnection connect = new SqlConnection(DBconnection);
             connect.Open();
@@ -73,7 +74,6 @@ namespace G24.Pages.ImgController
 
                 command.Parameters.AddWithValue("@ID", imgid);
 
-                Console.WriteLine("The id: " + imgid);
 
                 SqlDataReader reader = command.ExecuteReader();
 
@@ -91,23 +91,12 @@ namespace G24.Pages.ImgController
 
             if(download == 1)
             {
-                /*var path = Path.GetFullPath("./wwwroot/images/school-assets/" + filename);
-                //MemoryStream memory = new MemoryStream();
-                using (FileStream stream = new FileStream(path, FileMode.Open))
-                {
-                    //await stream.CopyToAsync(memory);
-                }
-                memory.Position = 0;
-                return File(memory, "image/png", Path.GetFileName(path));
-                */
-                // ************************************************************************
-
                 const string Path2 = "ImgUploads";
                 var FileToDownload = Path.Combine(_env.WebRootPath, Path2, ImgRecord.ImgURL);
                 MemoryStream memory = new MemoryStream();
                 using (FileStream Fstream = new FileStream(FileToDownload, FileMode.Open))
                 {
-                    await Fstream.CopyToAsync(memory);//await
+                    await Fstream.CopyToAsync(memory);
                 }
                 memory.Position = 0;
                 return File(memory, "image/jpg", Path.GetFileName(FileToDownload));
@@ -125,6 +114,12 @@ namespace G24.Pages.ImgController
                 while (name_reader.Read())
                 {
                     UploadUser = name_reader.GetString(0) + " " + name_reader.GetString(1);
+                }
+
+                if (UploadUser == null)
+                {
+                    UploadUser = "Archived User";
+
                 }
 
                 connect.Close();

@@ -36,7 +36,7 @@ namespace G24.Pages.Users
         }
 
 
-        public List<int> AccountType { get; set; } = new List<int> { 0, 1, 2 };
+        public List<int> AccountType { get; set; } = new List<int> { 0, 1 };
 
         [BindProperty]
         public SessionActive ActiveRecord { get; set; }
@@ -50,17 +50,18 @@ namespace G24.Pages.Users
         public IActionResult OnGet(string PDF)
         {
             ActiveRecord = new SessionActive();
-
+            // get the session data
             ActiveRecord.Active_SessionID = HttpContext.Session.GetString(Session_SessionID);
             ActiveRecord.Active_EmailAddress = HttpContext.Session.GetString(Session_EmailAddress);
             ActiveRecord.Active_FirstName = HttpContext.Session.GetString(Session_FirstName);
             ActiveRecord.Active_ModLevel = HttpContext.Session.GetInt32(Session_ModLevel);
             
-
+            // check if a session exists
             if (string.IsNullOrEmpty(ActiveRecord.Active_EmailAddress) && string.IsNullOrEmpty(ActiveRecord.Active_FirstName) && string.IsNullOrEmpty(ActiveRecord.Active_SessionID))
             {
                 
                 ActiveRecord.Active_Sesson = false;
+                // redirect to login if no session exists
                 return RedirectToPage("/Login/Login");
 
             }
@@ -69,13 +70,15 @@ namespace G24.Pages.Users
                 ActiveRecord.Active_Sesson = true;
                 if (ActiveRecord.Active_ModLevel != 1)
                 {
+                    //if not a an admin redirect to user account page
                     return RedirectToPage("/Users/Index");
                 }
             }
 
+            //connect to database
             DBConnect G24database_connection = new DBConnect();
             string DBconnection = G24database_connection.DatabaseString();
-            Console.WriteLine(DBconnection);
+            
 
             SqlConnection connect = new SqlConnection(DBconnection);
             connect.Open();
@@ -85,19 +88,22 @@ namespace G24.Pages.Users
             {
 
                 command.Connection = connect;
-                //sets all new users to a modlevel of 0
+                // selects all users from the User database
                 command.CommandText = @"SELECT * FROM Users";
 
+                // filters users from the database if filter exists
                 if (!(string.IsNullOrEmpty(Type) || Type == "ALL"))
                 {
                     command.CommandText += " WHERE ModLevel = @accType";
                     command.Parameters.AddWithValue("@accType", Convert.ToInt32(Type));
                 }
 
+                // execte the database command 
                 SqlDataReader reader = command.ExecuteReader();
 
                 UserRecords = new List<User>();
 
+                // loop though returned data
                 while (reader.Read())
                 {
                     User record = new User();
@@ -114,35 +120,38 @@ namespace G24.Pages.Users
                 reader.Close();
 
 
-                //PDF code here!
+                // if PDF is set in the url
                 if (PDF == "1")
             {
-                //Create an object for pdf document
+                //Create an object for the PDF document
                 Document doc = new Document();
                 Section sec = doc.AddSection();
                 Paragraph para = sec.AddParagraph();
 
-                //Adding picture
+                //Add a picture to the pdf
                 ImageSource.ImageSourceImpl = new ImageSharpImageSource<Rgba32>();
                 Paragraph para2 = sec.AddParagraph();
                 var picpath = Path.Combine(_env.WebRootPath, "Files", "UserPhoto.png");
                 var image = para2.AddImage(ImageSource.FromFile(picpath));
-                image.Width = Unit.FromCentimeter(17);
-                para2.Format.SpaceAfter = Unit.FromCentimeter(2);
+                image.Width = Unit.FromCentimeter(17); // define picture width
+                para2.Format.SpaceAfter = Unit.FromCentimeter(2); // define the space after the image
 
+                // define the font type size and colour
                 para.Format.Font.Name = "Arial";
                 para.Format.Font.Size = 14;
                 para.Format.Font.Color = Color.FromCmyk(0, 0, 0, 100); //black colour
+                // add title
                 para.AddFormattedText("User Report : ", TextFormat.Bold);
+                // add space after the title
                 para.Format.SpaceAfter = "1.0cm";
 
-                //Table
+                // set-up table define padding, and borders
                 Table tab = new Table();
                 tab.Borders.Width = 0.75;
                 tab.TopPadding = 5;
                 tab.BottomPadding = 5;
 
-                //Column
+                // sets up the columns within the ta table
                 Column col = tab.AddColumn(Unit.FromCentimeter(1.5));
                 col.Format.Alignment = ParagraphAlignment.Justify;
                 tab.AddColumn(Unit.FromCentimeter(4));
@@ -150,11 +159,11 @@ namespace G24.Pages.Users
                 tab.AddColumn(Unit.FromCentimeter(6));
                 tab.AddColumn(Unit.FromCentimeter(1.5));
 
-                //Row
+                // creates a row for the table header and sets a background colour
                 Row row = tab.AddRow();
                 row.Shading.Color = Colors.Green;
 
-                //Cell for header
+                //sets up the table headers
                 Cell cell = new Cell();
                 cell = row.Cells[0];
                 cell.AddParagraph("User ID");
@@ -169,7 +178,7 @@ namespace G24.Pages.Users
 
                     
 
-                //Add data to table 
+                //Add data to table loops through the user record array
                 for (int i = 0; i < UserRecords.Count; i++)
                 {
                     row = tab.AddRow();
@@ -185,21 +194,22 @@ namespace G24.Pages.Users
                     cell.AddParagraph(Convert.ToString(UserRecords[i].ModLevel));
                     }
 
+                // sets the border of the page
                 tab.SetEdge(0, 0, 4, (UserRecords.Count + 1), Edge.Box, BorderStyle.Single, 1, Colors.Gray);
                 sec.Add(tab);
                     
 
-                //Rendering
+                //renders the PDF 
                 PdfDocumentRenderer pdfRen = new PdfDocumentRenderer();
                 pdfRen.Document = doc;
                 pdfRen.RenderDocument();
 
-                //Create a memory stream
+                //creates a memory stream 
                 MemoryStream stream = new MemoryStream();
                 pdfRen.PdfDocument.Save(stream); //saving the file into the stream
 
                 Response.Headers.Add("content-disposition", new[] { "inline; filename = UserRecord.pdf" });
-                return File(stream, "application/pdf");
+                return File(stream, "application/pdf"); //directs to the PDF
 
             }
 
