@@ -35,14 +35,14 @@
 
             </tr>
         </thead>
-        @for (int i=0; i < Model.UserRecords.Count; i++)
+        @for (int i=0; i < Model.UserRecords.Count; i++) // loop through all users
         {
     <tr>
         <td>@Model.UserRecords[i].UserID</td>
         <td>@Model.UserRecords[i].FirstName</td>
         <td>@Model.UserRecords[i].LastName</td>
         <td>@Model.UserRecords[i].EmailAddress</td>
-        <td>@Model.UserRecords[i].Password</td>
+        <td><p>Hidden</p></td>
         <td>@Model.UserRecords[i].ModLevel</td>
         <td>
             <a asp-page="/Users/Update" asp-route-id="@Model.UserRecords[i].UserID">Update</a>
