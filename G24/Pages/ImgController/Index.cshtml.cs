@@ -116,7 +116,7 @@ namespace G24.Pages.ImgController
                     UploadUser = name_reader.GetString(0) + " " + name_reader.GetString(1);
                 }
 
-                if (UploadUser == null)
+                if (string.IsNullOrEmpty(UploadUser))
                 {
                     UploadUser = "Archived User";
 
